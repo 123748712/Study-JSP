@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    div {
+        border: 1px solid black;
+    }
+    #grandMother {
+        width: 200px;
+        height: 200px;
+    }
+    #mother {
+        width: 100px;
+        height: 100px;
+    }
+    #me {
+        width: 50px;
+        height: 50px;   
+    }
+</style>
+</head>
+
+<body>
+    <div id="grandMother" onclick="f_grand()">할머니
+        <div id="mother" onclick="f_mother()">엄마
+            <div id="me" onclick="f_me()">나</div>
+        </div>
+    </div>
+<script>
+    // 이벤트 버블링 / 정리.txt 참고
+    // 이벤트 전파를 막은 상황 => 이벤트 캡쳐링
+    var f_grand = function () {
+        alert("grandMother");
+    }
+
+    var f_mother = function () {
+        event.stopPropagation(); // 전파되는 이벤트 막기
+        alert("mother");
+    }
+
+    var f_me = function () {
+        event.stopPropagation();
+        alert("me");
+    }
+</script>
+    <!-- a 태그에는 자체적으로 click했을때 href로 이동되는 기능 탑재 (built-in) -->
+    <a href="http://naver.com" onclick="f_check()">네이버</a>
+
+<script>
+    var f_check = function () {
+        event.preventDefault(); // built-in 기능 막기
+        alert("클릭 !");
+    }
+</script>
+</body>
+</html>
