@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // var f_check = function () { // 함수를 리턴하는 함수
+    //     return function (a, b) {
+    //         return a + b;
+    //     }
+    // }
+
+    // var v_fcheck = f_check();
+    // alert(v_fcheck(3, 4));
+    
+    var calculator = function (p_op) {
+        if (p_op == "+") {
+            return function (a, b) {
+                return a + b;
+            }
+        }
+        if (p_op == "-") {
+            return function (a, b) {
+                return a - b;
+            }
+        }
+    }
+    var f_add = calculator("+");
+    alert(f_add(3,4));
+    var f_minus = calculator("-");
+    alert(f_minus(7,4));
+</script>

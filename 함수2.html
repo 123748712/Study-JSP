@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 매개변수, 값을 못받으면 undefined
+    // function안에서만 return 가능
+    // function을 종료하는 기능, return 다음 줄은 실행 X
+    function myRoze(p_arg1, p_arg2) {
+        // alert(p_arg1 + p_arg2);
+        // return "안녕";
+        // alert("흥흥"); // 실행되지 않는 구문
+
+        if(p_arg1 == "로제") {
+            alert("하잉");
+            return; // 함수의 return값이 없기 때문에 undefined
+        }
+            alert("누구");
+    }
+    alert(myRoze("로제")); // "안녕"을 리턴한다.
+</script>   

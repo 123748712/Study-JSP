@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+</head>
+<body>
+    <div id="id_disp"></div>
+<script>
+    // 2가지 데이터를 이용해서 아래 테이블로 출력
+    // 번호    이름    직위
+    //  1      로제    사장
+    //  2      제니    전무
+    var v_members = [
+        {name : "로제", position : "grade1"},
+        {name : "제니", position : "grade2"},
+        {name : "리사", position : "grade3"},
+        {name : "지수", position : "grade4"},
+        {name : "슈", position : "grade2"}
+    ];
+    
+    var v_levels = {
+        grade1 : "사장",
+        grade2 : "전무",
+        grade3 : "부장",
+        grade4 : "사원",
+    };
+
+    var v_tblStr = "<table border=2>";
+        v_tblStr += "<tr><th>번호</th><th>이름</th><th>직위</th></tr>";
+        for(var i = 0; i < v_members.length; i++){
+            v_tblStr += "<tr>";
+            v_tblStr += "<td>" + (i+1) + "</td>";
+            v_tblStr += "<td>" + v_members[i].name + "</td>";
+            v_tblStr += "<td>" + v_levels[v_members[i].position] + "</td>";
+            v_tblStr += "</tr>";
+        }
+    v_tblStr += "</table>";
+    document.querySelector("#id_disp").innerHTML = v_tblStr;
+</script>
+</body>
+</html>

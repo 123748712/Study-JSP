@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 자바스크립트는 동적 언어(데이터 타입이 오른쪽 값으로 자동 할당)
+    
+    "use strict" // 엄격모드 적용
+
+    var v_str = "문자열";
+    // alert(typeof(v_str));
+    var v_num = 272;
+    // alert(typeof(v_num));
+    var v_obj = {}; // ne w Object()와 같은 표현
+    var v_obj = "흥칫뿡"; // 객체에서 문자열로 변환
+    // alert(typeof(v_obj));
+
+    // javascript에서는 자동으로 boolean 값으로 변환한다.
+    // 빈 문자열은 false, 그 외엔 true
+    // 0은 false, 그 외엔 true
+    if("중프힘들었어요") {
+        // alert("아니요");
+    }
+    // var v_check = "111" + 272;
+    var v_check = "272" - 272 // 문자열 빼기는 불가능하다.
+    alert(v_check);
+
+    var v_check2 = "272" - 0; // 0으로 문자를 빼게 되면 자동으로 타입이 number로 변환
+    alert(typeof(v_check));
+</script>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <div id="id_div" style="border: 2px solid black;"></div>
+</body>
+<script>
+    var v_div = document.querySelector("#id_div");
+    v_div.style["background-color"] = "black";
+    v_div.style["color"] = "yellow";
+    v_div.innerHTML = "<h1>로제 좋아요 ?</h1>";
+    // JOSN => JavaScript Object Notation(JS 객체 표기 법)
+    // 넓은 의미로는 {} 와 Array 포함 / 넓은 의미가 정확
+    // 좁은 의미로는 {} 만 지칭
+    // CSV(Comma Seperated Value)
+
+    // var name = "hello";
+    // var v_obj = {
+    //     name: "로제", // 속성 추가
+    //     age: 25,      // 속성 추가
+    //     getAge: function () { // 메소드 추가
+    //         return age;
+    //     }
+    // }
+
+    var v_obj = {
+        ["name"] : "로제2",
+        ["age"] : 250,
+    }
+    console.log(v_obj.name);
+</script>

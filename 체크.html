@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <input type="text" id="id_txt" value="AA">
+<script>
+    // var v_check = document.querySelector("#id_txt").value;
+    // v_check = "BB";
+    // 문자열이기 때문에 참조가 아닌 복사
+
+    var v_check = document.querySelector("#id_txt");
+    v_check.value = "BB"
+    // document.querySelector("#id_txt") 를 그대로 v_check에 넣어줬기 때문에 객체로, 복사가 아닌 참조
+</script>
+</body>
+</html>
