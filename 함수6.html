@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 자바스크립트에서 함수의입력매개변수(Parameter, Argument)나
+// return타입은 자바스크립트에서 지원하는 타입이라면 가능
+
+
+    // JSON을 함수 입력으로,
+    var f_myRoze = function (p_json) { // p_json == p_arg
+        p_json.print();
+        // p_json.msg = "변경한 메세지";
+        // console.log(p_json); // 메세지가 변경됨.
+
+        return {
+            group : "블랙핑크",
+            members : ["로제","제니","리사","지수"],
+            getMembers : function () {
+                return this.members;
+            }
+        }
+    }
+
+    alert(f_myRoze({
+        print : function () {
+            alert("에러방지용 메소드"); // print 함수를 호출했기 때문에 메소드 생성
+        }
+    }).getMembers()[0]); // 배열이기 때문에 [] 사용 가능
+
+
+    var v_obj = {}; // 리터럴 표현
+    // var v_obj = new Object();
+    // 둘다 같은 코드
+
+    var msg = "전역변수 메세지";
+    var album = "전역변수 앨범";
+
+    // JSON
+    var p_arg = {
+        msg: "로제",
+        album: "Gone",
+        print: function () {
+            document.write(this.msg + this.album);
+        }
+    }
+    
+    // p_arg.print();
+
+    // f_myRoze(p_arg);    
+
+    f_myRoze({
+       msg : "JSON생성 메세지",
+       album : "JOSN생성 앨범",
+       print : function () {
+           alert("변수에 담지 않고 매개변수를 생성해서 넘기는 방식");
+       } 
+    });
+</script>
