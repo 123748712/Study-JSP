@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>validation(유효성검사)</title>
+</head>
+<body>
+    <script>
+        window.addEventListener("load", function () {
+            console.log(document.querySelector("#id.form"));
+        })
+    </script>
+<!--
+    최근 방식,
+    자주 사용된 기능이다보니 해당 기능을 자체적으로 추가
+    제공되는 것 이상의 체크를 하고싶다면, 스크리브로 체크
+ -->
+<form id="id_form" action="시작.html">
+    <input type="text" id="id" name="id" value="" readonly> <br>
+    <input type="password" id="pw" name="pw" value="" autofocus required placeholder="비밀번호를 입력해주세요."> <br>
+    <input type="text" id="tel" name="tel" value="" pattern="010-[0-9]{4}-[0-9]{4}" required placeholder="010-0000-0000"> <br>
+    <input type="submit" value="전송">
+</form>
+
+</body>
+</html>

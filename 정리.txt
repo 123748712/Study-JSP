@@ -6,3 +6,75 @@
 사설 IP (private IP) : 접속 불가
     고정 : IP 변경 불가
     동적 : IP 변경 가능
+
+함수 - return, 함수를 입력매개변수(콜백함수)로 받기, 함수를 리턴하기
+
+
+Wrapper class
+    기본타입의 데이터를 객체로 취급해야하는 경우가 생긴다.
+    각각의 타입에 해당하는 인수를 전달받아 해당 값을 가지는 객체로 변환해준다.
+    byte              Byte
+    short             Short
+    int               Integer
+    long       =>     Long
+    float             Float
+    double            Double
+    char              Character
+    boolean           Boolean
+
+
+event Bubbling
+    이벤트가 발생했을때 더 상위의 화면 요소로 전달되는 특성
+    event.stopPropagation(); 으로 전파되는 이벤트를 막을 수 있다.
+    event.preventDefault(); built-in (기본기능) 이벤트 방지
+
+
+HTML (HyperText Markup Language)
+    구조를 설계할때 사용되는 언어
+    hyper link 시스템을 가지고 있는 마크업 언어
+
+
+<style>
+position default => static
+absolute 로 설정하면 왼쪽부터 (0,0)으로 설정
+
+
+변수 = setTimeout(함수명, 시간);
+    대기시간이 지난 후 함수를 실행한다.
+
+clearTimeout(변수);
+    변수로 지정한 setTimeout()을 종료시킨다.
+
+
+window.addEventListener('resize', ...);
+    resize => document view 크기가 변경될때 발생
+    크기가 변경될때마다 이벤트 수신
+
+
+
+var func = function() {
+}
+
+addEventListener("click", func); // 클릭이벤트가 발생되어야 func가 실행됨
+addEventListener("click", func()); // 클릭 이벤트가 발생되지 않아도 func() 가 바로 실행됨
+func 뒤에 괄호가 붙으면 함수가 호출되기 때문
+
+
+<form> 태그 여러개 사용 가능
+but, <form>태그 안 <form>태그 사용 불가능
+form method="" => get (default)
+전송할 요소의 name 속성은 필수
+url ? 뒤의 문자열 => 쿼리스트링(QueryString)
+
+onsubmit => return 값에 따라 전송 가능 / 불가능
+
+required => 유효성검사 속성
+placeholder => 바닥글
+readonly => 읽기 전용, 서버로 값 전송 가능 (name = 값)
+disabled => 읽기 전용, 서버로 값 전송 불가능
+autofocus => 자동 포커스
+pattern => 정규식
+
+DOMContentLoaded vs load 이벤트
+DOMContentLoaded => 끝태그까지 해석되면 발생
+load => 태그해석 완료 + 이미지 로딩 완료 후 발생

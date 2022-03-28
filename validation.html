@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>validation(유효성검사)</title>
+</head>
+<body>
+<!-- html 페이지에서 서버로 정보를 보내기 위해선 form 태그 필수 ! -->
+<!-- default 메소드 => get -->
+<!-- name 속성 필수 ! -->
+<!-- get방식 ? 뒤 문자열 => 쿼리스트링(QueryString) -->
+<form action="시작.html" onsubmit="return f_submit()">
+    아이디<input type="text" id="id" name="id" value=""> <br>
+    비밀번호<input type="password" id="pw" name="pw" value=""> <br>
+    <input type="submit" value="전송">
+</form>
+<script>
+// 자바스크립트는 단순히 유효성 체크를 위해서 출현
+// 서버로 값을 보내기 전에 사용자가 값을 입력했는지 체크하기 위함
+var f_submit = function () {
+    var v_id = document.querySelector("#id");
+    var v_pw = document.querySelector("#pw");
+    if(!v_id.value) { // 빈 문자열은 false, 그 외엔 true
+        alert("아이디 미작성");
+        v_id.focus(); // 테스트박스에 마우스커서
+        return false;
+    }
+    if(!v_pw.value){
+        alert("비밀번호 미작성");
+        v_pw.focus();
+        return false;
+    }
+    return true; // 그 외엔 true
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 인라인 이벤트, 안 권장, 테스트에 주로 사용 -->
+    <input id="id_btn" type="button" value="버튼1" onclick="f_inline(this)">
+    <input id="id_btn2" type="button" value="버튼2">
+<script>
+    // 이벤트 등록 방법 1
+    var f_inline = function (p_this) {
+        console.log(p_this);
+        // document.querySelector("#id_btn").value = "버튼버튼1";
+        
+        // this를 사용해 배열식 접근법으로 가능
+        p_this.value = "버튼버튼1";
+        p_this.style["color"] = "white";
+        p_this.style.backgroundColor = "gray";
+    }
+    
+    // 이벤트 등록 방법 2 => 동일한 이벤트를 다시 입력했을때 한개만 적용
+    var v_btn2 = document.querySelector("#id_btn2");
+    // v_btn2.onclick = function () {
+        // alert("버튼2 클릭");
+    // };
+
+    // 이벤트 등록방법 3
+    v_btn2.addEventListener("click", function (e) { // 이벤트가 발생되었을때 실행되는 함수 => 이벤트 핸들러
+        alert("버튼2 클릭클릭");                     // 이벤트 핸들로에 자동으로 event 객체를 넘기도록 설계되어 있음
+        // console.log(event.target); // 이벤트를 발생시킨 객체
+        console.log(e.target); // function 매개변수에 쓴 변수이름과 동일하게 사용 가능
+    });
+
+    var f_roze = function () {
+        alert("블랙핑크 로제");
+    }
+
+    v_btn2.addEventListener("click", f_roze()); // 정리.txt 참고
+</script>
+</body>
+</html>
