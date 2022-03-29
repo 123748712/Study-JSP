@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_ball {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        border-radius: 50%; /* 50% => 원 */
+    }
+    #id_bar {
+        position: absolute;
+        width: 150px;
+        height: 20px;
+        background-color: blueviolet;
+    }
+</style>
+</head>
+<body>
+    <div id="id_ball" style="position:absolute; left:0px; top:100px"></div>
+    <div id="id_bar" style="left:10px; top:400px"></div>
+    <input type="button" value="move" onclick="f_move()">
+    <input type="button" value="stop" onclick="f_stop()">
+    <script>
+        // alert(window.innerHeight); // 사용자가 보는 윈도우 높이
+        // alert(window.innerWidth); // 사용자가 보는 윈도우 너비
+
+        var v_ball = document.querySelector("#id_ball");
+        var v_bar = document.querySelector("#id_bar");
+        var v_mvWidth = 10;
+        var v_mvHeight = 10;
+        var v_wndWidth = window.innerWidth;
+        var v_wndHeight = window.innerHeight;
+        var v_barMove = 10;
+        // console.log(v_wndHeight);
+        // console.log("width : " + v_wndWidth);
+       
+
+        var v_timerId; // 전역변수로 선언
+        function f_move() {
+            v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px";
+            v_ball.style.top = parseInt(v_ball.style.top) + v_mvHeight + "px";
+            
+            var v_top = parseInt(v_ball.style.top);
+            var v_bottom = parseInt(v_ball.style.top) + 50;
+            var v_right = parseInt(v_ball.style.left) + 50;
+            var v_left = parseInt(v_ball.style.left);
+
+            if(v_right >= v_wndWidth || v_left <= 0) { // 오른쪽에 닿았을 때
+                v_mvWidth = -v_mvWidth;
+            }
+
+            if(v_bottom >= v_wndHeight || v_top <= 0 || (parseInt(v_bar.style.left) <= v_right && parseInt(v_bar.style.left)+150 >= v_left && parseInt(v_bar.style.top) == v_bottom)) {
+                v_mvHeight = -v_mvHeight;
+            }
+            
+            v_timerId = setTimeout(f_move, 50) // f_move()로 호출하면 함수가 호출되어 즉시 실행되기 때문에 함수 이름만 작성(Function Point)
+        }
+
+        // window size 변경 이벤트
+        window.addEventListener("resize", function () { // 정리.txt
+            // console.log(window.innerWidth); // 변경값 확인
+            // console.log(window.innerHeight); // 변경값 확인
+            v_wndWidth = window.innerWidth;
+            v_wndHeight = window.innerHeight;
+        });
+
+        var f_keyDown = function () { // 키값 확인 하는 이벤트
+            var v_leftt = parseInt(v_bar.style.left);
+            var v_rightt = parseInt(v_bar.style.left)+150;
+            // alert(event.keyCode); 
+            // alert(event.key);
+            // if(parseInt(v_bar.style.left) >= 0 || parseInt(v_bar.style.left)+150 >= v_wndWidth){
+                if(event.keyCode == 37) { // 왼쪽
+                    if(v_leftt >= 0) {
+                        v_bar.style.left = parseInt(v_bar.style.left) - v_barMove + "px";
+                    } 
+                };
+                if(event.keyCode == 39) { // 오른쪽
+                    if(v_rightt <= v_wndWidth) {
+                        v_bar.style.left = parseInt(v_bar.style.left) + v_barMove + "px";
+                    }
+                    // console.log(v_bar.style.left);
+                };
+            };
+        window.addEventListener("keydown", f_keyDown);
+
+        function f_stop() {
+            clearTimeout(v_timerId); // 정리.txt
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_ball {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        border-radius: 50%; /* 50% => 원 */
+    }
+</style>
+</head>
+<body>
+    <div id="id_ball" style="position:absolute; left:0px; top:100px"></div>
+    <input type="button" value="move" onclick="f_move()">
+    <input type="button" value="stop" onclick="f_stop()">
+    <script>
+        // alert(window.innerHeight); // 사용자가 보는 윈도우 높이
+        // alert(window.innerWidth); // 사용자가 보는 윈도우 너비
+
+        var v_ball = document.querySelector("#id_ball");
+        var v_mvWidth = 100;
+        var v_wndWidth = window.innerWidth;
+
+        var v_timerId; // 전역변수로 선언
+        function f_move() {
+            v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px";
+            
+            var v_right = parseInt(v_ball.style.left) + 50;
+            var v_left = parseInt(v_ball.style.left);
+            
+            if(v_right >= v_wndWidth || v_left <= 0) { // 오른쪽에 닿았을 때
+                v_mvWidth = -v_mvWidth;
+            }
+            
+            v_timerId = setTimeout(f_move, 500) // f_move()로 호출하면 함수가 호출되어 즉시 실행되기 때문에 함수 이름만 작성(Function Point)
+        }
+
+        // window size 변경 이벤트
+        window.addEventListener("resize", function () { // 정리.txt
+            console.log(window.innerWidth); // 변경값 확인
+            v_wndWidth = window.innerWidth;
+        });
+
+        function f_stop() {
+            clearTimeout(v_timerId); // 정리.txt
+        };
+    </script>
+</body>
+</html>
