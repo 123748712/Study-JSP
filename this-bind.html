@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <input type="button" id="id_btn" value="버튼">
+</body>
+<script>
+    // bind
+    var v_btn = document.querySelector("#id_btn");
+
+    var f_click = function (p_arg) {
+        console.log(this);
+        alert("클릭" + p_arg);
+    }
+
+    v_btn.addEventListener("click", f_click.bind(document, "매개변수1")); // 함수포이터를 리턴해줌
+    // v_btn.addEventListener("click", f_click.call(document, "매개변수1")); // call은 함수를 실행시킴
+    // bind() 의 첫 매개변수는 this, 두번째 매개변수엔 p_arg를 가리킴
+
+    // var myPrint = function (p_msg) {
+    //     document.write(p_msg + "<br>");
+    // }
+
+    // 참조(Reference)를 이해하는 사람이 생각할 수 있는 방법
+    // var myPrint = document.write; // myPrint를 호출할때 this의 값이 변경될 수 있어 오류가 남
+    var myPrint = document.write.bind(document); // bind로 myPrint가 실행될 함수를 담아주어 this가 고정된 후 실행되게끔 담아준다.
+
+    myPrint("<h1>myPirnt function</h1>");
+</script>

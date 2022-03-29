@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 실제 script에서 this 다루기 어렵다.
+    // call, apply, bind를 가지고 this 제어
+
+    // 정리.txt 
+    
+    var f_check = function (p_arg1, p_arg2, p_arg3) {
+        console.log("매개변수 : ", p_arg1, p_arg2, p_arg3)   
+        console.log(this); // this => window
+    }                      // 상황에 따라 this 값 변경
+
+    // window.f_check(); // window 생략 가능 window객체 내에 포함되어 있는 function이기 때문에 this는 window를 가리킴
+
+    var v_obj = {
+        name : "name"
+    };
+
+    v_obj.myfunc = f_check;
+    // v_obj.myfunc(); // this => v_obj
+    // v_obj.myfunc.call(window); // this => window
+                               // 매개변수 안 값을 this가 가리킴
+    
+    // call은 각각으로, apply는 배열로 매개변수를 넘김 
+    // v_obj.myfunc.call(document, "매개1", "매개2", "매개3"); // p_arg1, p_arg2, p_arg3 값 저장
+    v_obj.myfunc.apply(document, ["매개11", "매개22", "매개33"]); // p_arg1, p_arg2, p_arg3 값 저장
+    
+    
+    
+    
+</script>
