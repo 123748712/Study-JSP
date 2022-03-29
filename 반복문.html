@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 반복문 for, while
+
+    var i = 1;
+    var sum = 0;
+
+    // while문
+
+    // while("참") {
+    //     sum += i;
+    //     if(i==10){
+    //         alert(sum);
+    //         break;
+    //     }
+    //     i++;
+    // }
+
+    // for문 (while => for)
+
+    // for(;"참";) { // 초기값, 증가값 생략
+    //     sum += i;
+    //     i++;
+    //     if(i == 9) continue; // 특정 조건에서 스킵할때 사용
+    //     if(i==10){
+    //         alert("for문 " + sum);
+    //         break;
+    //     }
+    // }
+
+
+    // 스크립트 반복문 for in, 객체에서 속성값
+    var v_obj = {
+        name1 : "네임1",
+        name2 : "네임2",
+        name3 : "네임3",
+        name4 : "네임4"
+    }
+    
+    // for(var v_key in v_obj) {
+    //     alert("key : " + v_key + " value : " + v_obj[v_key]);
+    // }
+
+
+    for(var v_key in document) {
+        document.write(v_key + " : " + document[v_key] + "<br>");
+    }
+</script>
