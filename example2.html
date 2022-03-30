@@ -9,6 +9,10 @@
         height: 50px;
         background-color: red;
         border-radius: 50%; /* 50% => 원 */
+        background-image: url("./image/accs.gif");
+        background-size: 50px 50px;
+        /* transform: rotate(45deg); */
+        /* transform: skewX(45deg); */
     }
     #id_bar {
         position: absolute;
@@ -35,14 +39,15 @@
         var v_wndWidth = window.innerWidth;
         var v_wndHeight = window.innerHeight;
         var v_barMove = 10;
-        // console.log(v_wndHeight);
-        // console.log("width : " + v_wndWidth);
-       
+        var v_gakdo = 0; // 회전각
 
         var v_timerId; // 전역변수로 선언
 
         var move = document.getElementById("#move");
         function f_move() {
+            // v_gakdo += 30; 좋지 않은 방법 361도는 1도와 같기 때문에 숫자만 무한히 커진다.
+            v_gakdo = (v_gakdo+30) % 360;
+            v_ball.style.transform = "rotate(" + v_gakdo + "deg)";
             v_ball.style.left = parseInt(v_ball.style.left) + v_mvWidth + "px";
             v_ball.style.top = parseInt(v_ball.style.top) + v_mvHeight + "px";
             
@@ -52,10 +57,12 @@
             var v_left = parseInt(v_ball.style.left);
 
             if(v_right >= v_wndWidth || v_left <= 0) { // 오른쪽에 닿았을 때
+                v_ball.style.transform = "skewX(45deg)"
                 v_mvWidth = -v_mvWidth;
             }
 
             if(v_bottom >= v_wndHeight || v_top <= 0 || (parseInt(v_bar.style.left) <= v_right && parseInt(v_bar.style.left)+150 >= v_left && parseInt(v_bar.style.top) == v_bottom)) {
+                v_ball.style.transform = "skewY(45deg)"
                 v_mvHeight = -v_mvHeight;
             }
             

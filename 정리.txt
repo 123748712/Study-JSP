@@ -96,3 +96,17 @@ bind => 함수를 실행시키지 않고 함수를 리턴하고, 그 외에는 c
 var boundSay = say.bind(obj); => obj 를 this로 넘겨준 후 boundSay에 함수를 담는다. (obj는 만들지 않았음)
 
 boundSay(); => 실제로 실행될 함수
+
+=============================================================
+
+transform
+
+- rotate(deg) 각 축을 두고 deg도 만큼 회전한다.
+retateX
+retateY
+retateZ(retate) / default
+
+- skew(deg) 각 축을 기준으로 deg도 만큼 비틀어진다.
+skewX
+skewY
+xkewZ
