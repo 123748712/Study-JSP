@@ -38,4 +38,4 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     version="4.0">
 }
-10. Configure => convert to tern project 선택 => Browser , jQuery 선택
+9. Configure => convert to tern project 선택 => Browser , jQuery 선택
