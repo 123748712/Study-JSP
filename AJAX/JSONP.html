@@ -1,0 +1,53 @@
+<!-- 이미지 검색기능  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    검색어<input type="text" id="id_sch" value=""><br>
+    <div id="id_disp"></div>
+<script>
+    var v_disp = document.querySelector("#id_disp");
+
+    // 함수를 미리 만들어줌
+    // 아래처럼 데이터를 넘겨받는 것을 JSONP(JSON PADDING) 라고 칭함
+    var jsonFlickrFeed = function(p_json) {
+        document.querySelector("#id_disp").innerHTML = "";
+        // console.log(p_json.items[0].media.m); 
+        var v_items = p_json.items;
+        for(var i = 0; i < v_items.length; i++){
+            // 이미지태그 생성
+            var v_img = document.createElement("img");
+            // src에 경로 할당
+            v_img.src = v_items[i].media.m;
+            // v_disp에 붙여넣기
+            v_disp.appendChild(v_img);
+        }
+    }
+    var v_sch = document.querySelector("#id_sch")
+    var v_pre = "https://www.flickr.com/services/feeds/photos_public.gne?tags=";
+    var v_post ="&format=json";
+    
+    var f_addFlickr = function() {
+        var v_script = document.querySelector("#id_fl");
+        if(v_script){
+            document.body.removeChild(v_script);
+        }
+        var v_scriptSrc = v_pre + v_sch.value + v_post;
+        // script태그 생성
+        v_script = document.createElement("script");
+        v_script.id = "id_fl";
+        v_script.src = v_scriptSrc;
+        document.body.appendChild(v_script);
+    }
+    v_sch.addEventListener("keydown", function() {
+        if(event.keyCode == 13) { // 엔터키
+            f_addFlickr();
+        }
+    })
+</script>
+<script id="id_fl" src="https://www.flickr.com/services/feeds/photos_public.gne?tags=cat&format=json"></script>
+</body>
+</html>

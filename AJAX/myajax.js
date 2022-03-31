@@ -9,6 +9,10 @@ $.ajax = function(p_json) {
                 p_json.success(JSON.parse(v_ajax.responseText));
                 return;
             }
+            if(p_json.dataType == "xml") {
+                p_json.success(v_ajax.responseXML);
+                return;
+            }
             p_json.success(v_ajax.responseText); // json이 아니면 일반 text타입으로
         }
     }

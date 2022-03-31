@@ -38,29 +38,29 @@
     // })
     // alert("동기/비동기 확인");
 
-    // 가져온 text 파일을 table 형태로 뿌리기
+    // xml 내용을 table 형태로 뿌리기
     var v_btn = document.querySelector("#id_btn");
-    var v_members = [];
     v_btn.addEventListener("click", function () {
         $.ajax({
             method : "get",
-            url : "data.csv",
+            url : "data.xml",
             async : true,
-            dataType : "text",
+            dataType : "xml",
             success : function (p_rslt) {
-               v_members = p_rslt.split("\n");
-               console.log(v_members[0]);
-               var v_table = "<table border=2>";
-                v_table += "<tr><th>이름</th><th>나이</th><th>특기</th></tr>";
-                for(var i = 1; i < v_members.length; i++){
+                var v_friends = p_rslt.getElementsByTagName("friend");
+                var v_table = "<table border=2>";
+                v_table += "<tr><th>name</th><th>age</th><th>chac</th></tr>";
+                for(var i = 0; i < v_friends.length; i++){
                 v_table += "<tr>";
-                v_table += "<td>" + v_members[i].split(",")[0] + "</td>";
-                v_table += "<td>" + v_members[i].split(",")[1] + "</td>";
-                v_table += "<td>" + v_members[i].split(",")[2] + "</td>";
+                v_table += "<td>" + p_rslt.getElementsByTagName("name")[i].innerHTML + "</td>";
+                v_table += "<td>" + p_rslt.getElementsByTagName("age")[i].innerHTML + "</td>";
+                v_table += "<td>" + p_rslt.getElementsByTagName("chac")[i].innerHTML + "</td>";
                 v_table += "</tr>";
         }
         v_table += "</table>";
         document.querySelector("#id_disp").innerHTML = v_table;
+            // console.log(v_friends[0]);
+            // document.getElementsByTagName("name")
             }
         })
     })
