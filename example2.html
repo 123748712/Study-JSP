@@ -25,10 +25,10 @@
 <body>
     <div id="id_ball" style="position:absolute; left:0px; top:100px"></div>
     <div id="id_bar" style="left:10px; top:400px"></div>
-    <input type="button" value="move" onclick="f_move()" id="move">
+    <input type="button" value="move" onclick="v_proxy()" id="move">
     <input type="button" value="stop" onclick="f_stop()" id="stop">
     <script>
-        document.querySelector("#stop").setAttribute("disabled", true);
+        // document.querySelector("#stop").setAttribute("disabled", true);
         // alert(window.innerHeight); // 사용자가 보는 윈도우 높이
         // alert(window.innerWidth); // 사용자가 보는 윈도우 너비
 
@@ -68,8 +68,8 @@
             
             v_timerId = setTimeout(f_move, 50) // f_move()로 호출하면 함수가 호출되어 즉시 실행되기 때문에 함수 이름만 작성(Function Point)
 
-            document.querySelector("#move").setAttribute("disabled", true);
-            document.querySelector("#stop").removeAttribute("disabled");
+            // document.querySelector("#move").setAttribute("disabled", true);
+            // document.querySelector("#stop").removeAttribute("disabled");
 
         }
 
@@ -103,9 +103,22 @@
 
         function f_stop() {
             clearTimeout(v_timerId); // 정리.txt
-            document.querySelector("#move").removeAttribute("disabled");
-            document.querySelector("#stop").setAttribute("disabled", true);
+            // document.querySelector("#move").removeAttribute("disabled");
+            // document.querySelector(" #stop").setAttribute("disabled", true);
+            
+            v_isStart = false; // stop 버튼을 누르면 시작 전 상태로 되돌리기.
         };
+        
+        // move button을 클릭하면 그 후로 중복실행 되지 않게 하기.
+        // 외부에서 함수를 제어하는 상태 proxy pattern (대신 요청, 대신 응답)
+        var v_isStart = false; // 시작 전 상태
+        
+        var v_proxy = function() {
+            if(!v_isStart) {
+                f_move();
+                v_isStart = true; // 실행된 상태
+            }
+        }
     </script>
 </body>
 </html>

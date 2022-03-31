@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="./myajax.js"></script>
+</head>
+<body>
+    <div id="id_disp" style="border: 1px solid black"></div>
+    <input type="button" value="버튼" id="id_btn">
+<script>
+    // namespace
+    // 
+    // 자바스크립트 변수명 사용 가능한 특수문자 _ , $
+    // var $ = {}; // $ 변수 안에 ajax를 넣는다.
+
+    // $.ajax = function(p_json) {
+    //     var v_ajax = new XMLHttpRequest();
+    //     v_ajax.open(p_json.method, p_json.url, p_json.async);
+    //     v_ajax.onreadystatechange = function() {
+    //         if(v_ajax.readyState == 4 && v_ajax.status == 200) {
+    //             p_json.success(v_ajax.responseText);
+    //         }
+    //     }
+    //     v_ajax.send();
+    // }
+    // =================== JS 라이브러리로 가져왔기 때문에 주석 처리함 ===================
+
+    // $.ajax({
+    //     method : "get",
+    //     url : "data.txt",
+    //     async : true,
+    //     dataType : "text", // js 라이브러리에서 dataType을 구분해 JSON.parse 분류
+    //     success : function (p_rslt) {
+    //         console.log(p_rslt); // text 문자열 출력
+    //         // console.log(JSON.parse(p_rslt)); // JSON.parse 이용, 배열 형태로 변환
+    //     }
+    // })
+    // alert("동기/비동기 확인");
+
+    var v_btn = document.querySelector("#id_btn");
+    var v_members = [];
+    v_btn.addEventListener("click", function () {
+        $.ajax({
+            method : "get",
+            url : "data.csv",
+            async : true,
+            dataType : "text",
+            success : function (p_rslt) {
+               v_members = p_rslt.split("\n");
+               console.log(v_members[0]);
+               var v_table = "<table border=2>";
+                v_table += "<tr><th>이름</th><th>나이</th><th>특기</th></tr>";
+                for(var i = 1; i < v_members.length; i++){
+                v_table += "<tr>";
+                v_table += "<td>" + v_members[i].split(",")[0] + "</td>";
+                v_table += "<td>" + v_members[i].split(",")[1] + "</td>";
+                v_table += "<td>" + v_members[i].split(",")[2] + "</td>";
+                v_table += "</tr>";
+        }
+        v_table += "</table>";
+        document.querySelector("#id_disp").innerHTML = v_table;
+            }
+        })
+    })
+    console.log(v_members[0]);
+
+    // console.log(v_members);
+    // 가져온 내용을 id_disp div에 table형태로 만드시오.
+    // var v_table = "<table border=2>";
+    //     v_table += "<tr><th>이름</th><th>나이</th><th>특기</th></tr>";
+    //     for(var i = 0; i < v_members.length; i++){
+    //         v_table += "<tr>";
+    //             v_table += "<td>" + v_members[i].split(",")[0] + "</td>";
+    //             v_table += "<td>" + v_members[i].split(",")[1] + "</td>";
+    //             v_table += "<td>" + v_members[i].split(",")[2] + "</td>";
+    //             v_table += "</tr>";
+    //     }
+    //     v_table += "</table>";
+        // document.querySelector("#id_disp").innerHTML = v_table;
+</script>
+</body>
+</html>

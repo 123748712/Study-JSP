@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <pre id="id_disp"></pre>
+    <input type="text" id="id_txt" value=""><br>
+    <input type="button" id="id_btn" value="버튼">
+<script>
+    // var v_ajax = new XMLHttpRequest(); // 통신 객체 생성
+   
+    // v_ajax.open("get", "../시작.html", true); // (요청 방식, 요청 URL, 비동기여부) 요청 메소드
+
+    // // 이벤트가 발생될때 실행될 함수 지정
+    // v_ajax.onreadystatechange = function () { // 정리.txt
+    //     if(v_ajax.readyState == 4 && v_ajax.status == 200) { // 결과를 받았을때
+    //             alert(v_ajax.responseText);
+    //     }
+    // }
+    // v_ajax.send(); // 서버로 전달하는 메소드
+
+    // alert("alert") // 비동기방식이면 먼저, 동기 방식이면 뒤에 경고창 출력
+
+    // var v_txt = document.querySelector("#id_txt");
+    // var v_btn = document.querySelector("#id_btn");
+
+
+    // v_btn.onclick = function () {
+    //     var v_ajax = new XMLHttpRequest();
+        // v_ajax.open("get", "../" + v_txt.value, true); // html 파일을 입력하면 안의 text가 alert창으로 띄워짐
+        // v_ajax.onreadystatechange = function() {
+        //     if(v_ajax.readyState == 4 && v_ajax.status == 200) {
+        //         alert(v_ajax.responseText);
+        //     }
+        // }
+        // v_ajax.send();
+    // }
+    
+
+    // var ajax = function(p_method, p_url, p_cb) {
+    //     var v_ajax = new XMLHttpRequest();
+    //     v_ajax.open(p_method, p_url, true);
+    //     v_ajax.onreadystatechange = function() {
+    //         if(v_ajax.readyState == 4 && v_ajax.status == 200) {
+    //             p_cb(v_ajax.responseText);
+    //         }
+    //     }
+    //     v_ajax.send();
+    // }
+
+    // ajax("get", "../시작.html", function(p_rslt) {
+    //     alert(p_rslt);
+    // });
+
+
+   
+
+    var ajax = function(p_json) {
+        var v_ajax = new XMLHttpRequest();
+        v_ajax.open(p_json.method, p_json.url, true);
+        v_ajax.onreadystatechange = function() {
+            if(v_ajax.readyState == 4 && v_ajax.status == 200) {
+                p_json.success(v_ajax.responseText);
+            }
+        }
+        v_ajax.send();
+    }
+ 
+
+    // JSON으로 묶어준다.
+    // var v_set = {
+    //     method : "get",
+    //     url : "../시작.html",
+    //     success : function(p_rslt) {
+    //         alert(p_rslt);
+    //     }
+    // }
+    // ajax(v_set);
+
+
+    ajax ({
+        method : "get",
+        url : "../정리.txt",
+        success : function (p_rslt) {
+            document.querySelector("#id_disp").innerHTML = p_rslt;s
+        }
+    });
+</script>
+</body>
+</html>
