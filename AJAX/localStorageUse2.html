@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // localStorage 응용
+    // 객체 지향 DB에 유명한 MongoDB가 있음
+    // 테이블을 Collection이라 부르고, 실제는 배열 타입을 사용
+    // 테이블의 Row를 Document라 부르고, 실제는 JSON타입을 사용
+
+    var v_tblName = "myTable";
+    var v_tblData = []; // 빈 배열
+    for(var i = 1; i <= 10; i++) {
+        var v_row = {}; // 빈 객체()
+        v_row.name = "row" + i;
+        v_row.age = i*10;
+        if(i == 10) {
+            v_row.comment = {"com1" : "com1", "com2" : "com2"};
+        } else {
+            v_row.comment = "comment" + i;
+        }
+
+        // 생성한 객체를 배열에 담아준다.
+        v_tblData.push(v_row);
+    }
+    // 배열을 localStorage에 저장
+    // localStorage는 문자열만 저장할 수 있다.
+    localStorage.setItem(v_tblName, JSON.stringify(v_tblData)); // JSON.stringify 로 배열을 문자열로 변환
+
+</script>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // localStorage(브라우저 영구저장소) 사용법 (Cookie 대용)
+    // 일부 사이트는 사용자 관련 정보는 사용자 브라우저에 저장해 사용
+
+    localStorage.setItem("키", "175"); // key에 value 저장
+    localStorage.setItem("발", "280");
+    localStorage.setItem("키", "180"); // 이미 있는 key에는 value를 덮어쓴다.
+    alert(localStorage.getItem("발")); // key에 저장된 value 불러오기.
+    alert("item 갯수 : " + localStorage.length); // length로 개수 확인 가능
+    alert(localStorage.key(0)); // index번의 key값
+    localStorage.clear(); // 전체 삭제
+    localStorage.removeItem("키"); // 특정 key값 삭제
+    // localStorage.setItem("bts", "greate");
+    localStorage.bts = "greate"; // setItem 다르게 사용 가능한 예시
+
+
+</script>
