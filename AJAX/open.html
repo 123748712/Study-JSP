@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input id="id_btn" type="button" value="버튼">
+<script>
+    var v_btn = document.querySelector("#id_btn");
+    var f_click = function() {
+        // 새창 열기
+        window.open("list.html", "page", "width=200, height=200, left = 150, top = 150");
+        // ("url", "name", "attr")
+        // 이름을 주지 않으면 새탭이 계속 열림. 이름을 주면 동일한 창이 열려있을때 포커스가 열려있는 창으로 감
+        // width, height 브라우저 크기, left, top 브라우저 열리는 위치
+    }
+    v_btn.onclick = f_click;
+</script>
+</body>
+</html>

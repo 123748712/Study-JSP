@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <form action="write_action.html">
+        제목 : <input type="text" name="nm_title" value="제목" required> <br>
+        글쓴이 : <input type="text" name="nm_writer" value="글쓴이" required> <br>
+        글쓴이 스킬 (3개 선택)<br>
+        JS<input type="checkbox" name="nm_skills" value="js" onclick="check(this)">
+        SPRING<input type="checkbox" name="nm_skills" value="spring" onclick="check(this)">
+        PYTHON<input type="checkbox" name="nm_skills" value="python" onclick="check(this)" checked>
+        ORACLE<input type="checkbox" name="nm_skills" value="oracl" onclick="check(this)"> <br>
+        <hr>
+        내용 <br>
+        <textarea name="nm_content" rows="5" cols="40" required>내용</textarea> <br>
+        <input type="submit" value="글쓰기">
+    </form>
+</body>
+<script>
+    // checkbox 체크 갯수 제한 함수
+    var cnt = 0;
+    function check(checkbox) {
+        if(checkbox.checked) {
+            cnt++;
+        } else {
+            cnt--;
+        }
+        if(cnt > 3) {
+            alert("3개만 체크해주세요.");
+            checkbox.checked = false;
+            cnt--;
+        }
+        console.log(cnt);
+    }
+
+</script>
+</html>

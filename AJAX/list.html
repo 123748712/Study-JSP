@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>게시판 리스트</h1>
+    <div id="id_disp"></div> <!-- display용 -->
+    <a href="write.html">글쓰기</a>
+<script>
+    var v_disp = document.querySelector("#id_disp");
+
+    var v_tblName = "table"; // key값 고정
+    var v_guls = JSON.parse(localStorage.getItem(v_tblName)); // 게시글 작성시 저장한 localstorage의 value 꺼내기
+
+    var v_tblStr = "<table border = 1>";
+        v_tblStr += "<tr><th>순번</th><th>제목</th><th>작성자</th><th>능력</th></tr>";
+    
+    for(var i = 0; i < v_guls.length; i++) {
+        v_tblStr += "<tr>";
+        v_tblStr += "<td>" + (i+1) + "</td>"
+        v_tblStr += "<td>" + v_guls[i].title + "</td>"
+        v_tblStr += "<td>" + v_guls[i].writer + "</td>"
+        v_tblStr += "<td>" + v_guls[i].skills + "</td>"
+        v_tblStr += "</tr>";
+    }
+        v_tblStr += "</table>";
+
+        v_disp.innerHTML = v_tblStr;
+</script>
+</body>
+</html>

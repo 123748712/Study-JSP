@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+    // location.href => 주소창
+    
+    // encoding <=> decoding
+    // escape <=> unescape
+    // encodeURI <=> decodeURL
+    // encodeURIComponent <=> decodeURLComponent
+    // alert(decodeURIComponent(v_title));
+
+    // // 추상화
+    // var request = {};
+    // request.getParameter = function (p_name) {
+    //     if(location.href.indexOf("?") == -1) { // 찾으면 index값을 return, 없으면 -1 return
+    //         return null;
+    //     }
+    //     var v_queryString = location.href.split("?")[1];
+    //     var v_params = v_queryString.split("&");
+    //     for(var i = 0; i < v_params.length; i++) {
+    //         var v_name = v_params[i].split("=")[0];
+    //         var v_value = v_params[i].split("=")[1];
+    //         if(v_name == p_name) {
+    //             return decodeURIComponent(v_value).replaceAll("+", " "); // replaceAll("변경전문자", "변경할문자")
+    //         }
+    //     }
+    //     return null;
+    // }
+    // // alert(request.getParameter("nm_title"));
+
+    // request.getParameter = function (p_name) {
+    //     if(location.href.indexOf("?") == -1) { // 찾으면 index값을 return, 없으면 -1 return
+    //         return null;
+    //     }
+    //     var v_values = []; // 찾은 값들을 담을 빈 배열
+    //     var v_queryString = location.href.split("?")[1];
+    //     var v_params = v_queryString.split("&");
+       
+    //     for(var i = 0; i < v_params.length; i++) {
+    //         var v_name = v_params[i].split("=")[0];
+    //         var v_value = v_params[i].split("=")[1];
+    //         if(v_name == p_name) { // 찾았다면 배열에 담음, return X
+    //             v_values.push(decodeURIComponent(v_value).replaceAll("+", " "));
+    //         }
+    //     }
+    //     if(!v_values.length) {
+    //         return null;
+    //     }
+    //     return v_values;
+    // }
+    
+    var v_title = request.getParameter("nm_title");
+    var v_writer = request.getParameter("nm_writer");
+    var v_content = request.getParameter("nm_content");
+    var v_skills = request.getParameterValues("nm_skills");
+    // 값을 LocalStorage에 저장
+
+    var v_tblName = "table"; // 테이블명(key값)은 table로 고정
+
+    var v_gul = {}; // 하나의 객체로 묶기.
+    v_gul.pid = 1; // 데이터베이스의 primary- key 역할
+    v_gul.title = v_title;
+    v_gul.writer = v_writer;
+    v_gul.content = v_content;
+    v_gul.skills = v_skills;
+
+    // 객체를 localStorage에 저장
+    // 객체는 저장되지 않기 때문에 문자열로 변환
+    // localStorage.setItem(v_tblName, JSON.stringify(v_gul));
+    
+    // 덮어씌어지는 문제 해결방법
+    var v_gulDatas = []; // v_gul을 담을 빈 배열 선언
+    
+    if(localStorage.getItem(v_tblName)){ // key값에 value가 있는지 확인 (null => false, !null => true)
+        v_gulDatas = JSON.parse(localStorage.getItem(v_tblName)); // 글이 들어가 있다면 꺼내기.
+        v_gul.pid = v_gulDatas[v_gulDatas.length -1].pid +1; // 고유 키값 증가
+    }
+    v_gulDatas.push(v_gul);
+    localStorage.setItem(v_tblName, JSON.stringify(v_gulDatas)); // 배열을 localstorage에 담아주기.
+
+    alert("게시글 작성 완료");
+    // 리스트로 화면 전환
+    location.href = "list.html"; // 서버에 다시 요청하지 않고 캐쉬된 페이지를 사용할 수 있음 (url을 이동하는 경우 사용)
+    // location.replace("list.html"); // 서버에 필히 다시 요청해야함 (뒤로가기 버튼을 방지하고자 할때 사용)
+
+
+</script>
