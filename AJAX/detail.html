@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./jsp.js"></script>
+</head>
+<body>
+    <h1>게시판</h1>
+    <form action="update_action.html">
+        <!-- 사용자에게 보여줄 필요는 없지만, 프로그램상 필요한 값이 존재할 때 hidden 이용 -->
+        <input type="hidden" id="id_gulid" name="nm_gulid" value="">
+        제목 : <input type="text" name="nm_title" value="" required readonly> <br>
+        글쓴이 : <input type="text" name="nm_writer" value="" required readonly> <br>
+        글쓴이 스킬 (3개 선택)<br>
+        <hr>
+        JS<input type="checkbox" name="nm_skills" value="js" onclick="check(this)">
+        SPRING<input type="checkbox" name="nm_skills" value="spring" onclick="check(this)">
+        PYTHON<input type="checkbox" name="nm_skills" value="python" onclick="check(this)" checked>
+        ORACLE<input type="checkbox" name="nm_skills" value="oracl" onclick="check(this)"> <br>
+        <hr>
+        내용 <br>
+        <textarea name="nm_content" rows="5" cols="40" required>내용</textarea> <br>
+        <input type="submit" value="수정">
+    </form>
+</body>
+<script>
+    var v_title = document.querySelector("input[name=nm_title]");
+    var v_writer = document.querySelector("input[name=nm_writer]");
+    var v_content = document.querySelector("textarea");
+    var v_skills = document.querySelectorAll("input[name=nm_skills]");
+    var v_hidden = document.querySelector("#id_gulid");
+   
+    var v_tblName = "table";
+    var v_pid = request.getParameter("gulid");
+    var v_datas = JSON.parse(localStorage.getItem("v_tblName"));
+    v_hidden.value = v_pid; // 가져온 글의 id 값을 hidden에 세팅
+    var v_skills = document.querySelector("input[name=nm_skills]");
+    var v_datas = JSON.parse(localStorage.getItem(v_tblName));
+    // pid 값이 같은 data를 검색해 찾아내기.
+    for(var i = 0; i < v_datas.length; i++) {
+        if(v_datas[i].pid == v_pid) {
+            v_title.value = v_datas[i].title;
+            v_writer.value = v_datas[i].writer;
+            v_content.value = v_datas[i].content;
+        }
+    }
+    for(var i = 0; i < v_datas.v_skills.length; i++){
+        v_skills.values = v_datas.v_skills;
+    }
+
+    var skill =v_datas[i].skills;
+            
+    for(var j=0; j<v_skills.length;j++){
+        //skill이라는 배열에 v_skills의 value값이 들어있다면 체크
+        if(skill.includes(v_skills[j].value)){
+            v_skills[j].checked =true;
+        }
+        // var check = function (box){
+            // console.log(v_skills[j]);
+        //     if(skill.includes(v_skills[j].value)){
+        //         box.checked = true;
+        //         // v_skills[j].checked =true;
+        //     }
+        // }
+        // console.log(skill)
+        // console.log(v_skills[j].value)
+    }
+</script>
+</html>

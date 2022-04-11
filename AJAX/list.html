@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+<script src="jsp.js"></script>
+<style>
+    .current {
+        color:red; /* 글자색 red */
+        font-size: 2em; /* 글자크기 2배 */
+    }
+</style>
 </head>
 <body>
     <h1>게시판 리스트</h1>
@@ -14,20 +21,46 @@
     var v_tblName = "table"; // key값 고정
     var v_guls = JSON.parse(localStorage.getItem(v_tblName)); // 게시글 작성시 저장한 localstorage의 value 꺼내기
 
+    var v_gulSuPerPage = 10; // 페이지당 글 개수
+    var v_curPage = 1; // 현재 페이지 넘버, 디폴트 1페이지
+    if(request.getParameter("page") != null) {
+        v_curPage = request.getParameter("page");
+    }
+    var v_totalPage = Math.ceil(v_guls.length / v_gulSuPerPage); // 토탈 페이지 개수 (108개가 있다면 10 + 1 을 해줘야하기 때문에 ceil을 이용해 올림)
+    var v_startGulNum = (v_curPage -1) * v_gulSuPerPage; // 첫번째 글 번호
+    var v_endGulNum = v_startGulNum + v_gulSuPerPage; // 마지막 글 번호
+    if(v_endGulNum > v_guls.length) { // 마지막 페이지의 글 마지막 번호가 현재 글의 갯수보다 크다면
+        v_endGulNum = v_guls.length;  // 글 갯수와 마지막 페이지의 글 번호를 맞춰준다. (for문 에러 방지)
+    }
     var v_tblStr = "<table border = 1>";
         v_tblStr += "<tr><th>순번</th><th>제목</th><th>작성자</th><th>능력</th></tr>";
-    
-    for(var i = 0; i < v_guls.length; i++) {
-        v_tblStr += "<tr>";
-        v_tblStr += "<td>" + (i+1) + "</td>"
-        v_tblStr += "<td>" + v_guls[i].title + "</td>"
-        v_tblStr += "<td>" + v_guls[i].writer + "</td>"
-        v_tblStr += "<td>" + v_guls[i].skills + "</td>"
-        v_tblStr += "</tr>";
-    }
+        
+        for(var i = v_startGulNum; i < v_endGulNum; i++) {
+            v_tblStr += "<tr>";
+            v_tblStr += "<td>" + (i+1) + "</td>"
+            v_tblStr += "<td><a href='http://naver.com' onclick='f_open(" + v_guls[i].pid + ")'>" + v_guls[i].title + "</a></td>"
+            v_tblStr += "<td>" + v_guls[i].writer + "</td>"
+            v_tblStr += "<td>" + v_guls[i].skills + "</td>"
+            v_tblStr += "</tr>";
+        }
         v_tblStr += "</table>";
 
-        v_disp.innerHTML = v_tblStr;
+    for(var i = 1; i <= v_totalPage; i++) {
+        if(i == v_curPage) { // 현재 페이지와 for문이 도는 i가 같으면 (내가 선택한 페이지) style 적용시킨다.
+            v_tblStr += "<a class='current' href=list.html?page=" + i + ">" + i + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        } else {
+            v_tblStr += "<a href=list.html?page=" + i + ">" + i + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        }
+    }
+
+    v_disp.innerHTML = v_tblStr;
+        
+    var child; // 열린창 제어를 위한 변수
+    var f_open = function (p_pid) {
+        event.preventDefault(); // 이벤트 제어
+        event.stopPropagation(); // 이벤트전파(버블링) 제어
+        child = window.open("detail.html?gulid="+p_pid, "detail", "width=1000, height= 1000, left = 500, top = 500")
+    }
 </script>
 </body>
 </html>

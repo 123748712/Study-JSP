@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="./jsp.js"></script>
+<script>
+    var v_tblName = "table";
+    var v_gulid = request.getParameter("nm_gulid");
+    var v_content = request.getParameter("nm_content");
+    var v_skills = request.getParameterValues("nm_skills");
+
+    var v_gulDatas = JSON.parse(localStorage.getItem(v_tblName)); 
+    for(var i = 0; i < v_gulDatas.length; i++) {
+        if(v_gulDatas[i].pid == v_gulid) {
+            v_gulDatas[i].content = v_content;
+            v_gulDatas[i].skills = v_skills;
+            // 덮어쓰기
+        }
+    }
+    // 읽어온 배열에서 해당 내용을 변경한 후 다시 localstorage에 저장
+    
+    localStorage.setItem(v_tblName, JSON.stringify(v_gulDatas)); 
+    alert("게시글 수정 완료");
+
+    opener.location.replace("list.html");
+    // opener => 열어준 부모창
+    window.close(); // 수정후 닫아주기.
+
+</script>

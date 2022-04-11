@@ -136,3 +136,10 @@ AJAX => 페이지 이동 없이 서버와 통신하기 위함 (비동기)
 - status => 서버의 문서 상태를 나타냄
   200 => 서버에 문서가 존재
   404 => 서버에 문서가 존재하지 않음
+
+
+
+encoding <=> decoding
+escape <=> unescape
+encodeURI <=> decodeURL
+encodeURIComponent <=> decodeURLComponent

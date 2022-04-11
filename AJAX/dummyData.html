@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 더미데이터 입력(페이지 나누기)
+    var v_tblName = "table";
+    var v_datas = []; // 글 객체를 담을 빈 배열
+
+    for(var i = 1; i <= 108; i++) {
+        var v_gul = {}; // 빈 객체 생성
+        v_gul.pid = i;
+        v_gul.title = "제목" + i;
+        v_gul.writer = "글쓴이" + i;
+        v_gul.content = "내용" + i;
+        var v_skills = ["JS", "PYTHON", "ORACLE", "SPRING"];
+        var v_count = Math.floor(Math.random()*2)+1; // 1 또는 2
+        for(var j = 0; j < v_count; j++) {
+            v_skills.splice(Math.floor(Math.random()*v_skills.length), 1) // 0,1,2,3 의 index중 하나만 지운다. 총 3개만 랜덤하게 선택되도록
+        }
+        v_gul.skills = v_skills;
+
+        v_datas.push(v_gul);
+    }
+
+    // localStorage에 배열을 문자열화해서 저장
+    localStorage.setItem(v_tblName, JSON.stringify(v_datas));
+</script>
