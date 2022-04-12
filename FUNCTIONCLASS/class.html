@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 자바스크립트 function 키워드는 class의 의미로도 쓰일 수 있다.
+    var A = function(p_name, p_age) { // class의 의미, 또는 constructor(생성자) 의미
+        this.name = p_name;
+        this.age = p_age;
+        // this.getName = function() {} // 이렇게 메소드 생성은 가능하지만 사용하지 않는 방식
+        // return;   // 함수로 호출할때 return
+        return this; // 생성자로 호출할때 return / 생략 가능
+    }
+    // prototype(원형)에 메소드 추가
+    // prototype 에 추가된 메소드는 따로 저장되며, 생성자가 필요할때마다 꺼내쓰는 형식으로 사용
+    A.prototype.getName = function() { // 메소드 생성 방식
+        return this.name;
+    }
+    A.prototype.getAge = function() {
+        this.age = "2"; // 함수를 호출했을때 동일한 값이 출력
+        return this.age;
+    }
+
+    // var cloneA = A(); // 일반함수 호출 방법
+
+    var cloneA = new A("A", "1"); // 생성자, class라고 칭함
+    alert(cloneA.getName()); // 메소드 호출
+    alert(cloneA.getAge());
+    // console.log(cloneA);
+    // var cloneA1 = new A("A1", "2");
+    // console.log(cloneA1);
+</script>   
