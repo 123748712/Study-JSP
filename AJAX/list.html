@@ -20,6 +20,10 @@
 
     var v_tblName = "table"; // key값 고정
     var v_guls = JSON.parse(localStorage.getItem(v_tblName)); // 게시글 작성시 저장한 localstorage의 value 꺼내기
+    
+    v_guls.sort(function(a,b) {
+        return b.pid - a.pid; // 게시글 번호 뒤집기
+    })
 
     var v_gulSuPerPage = 10; // 페이지당 글 개수
     var v_curPage = 1; // 현재 페이지 넘버, 디폴트 1페이지
@@ -33,7 +37,7 @@
         v_endGulNum = v_guls.length;  // 글 갯수와 마지막 페이지의 글 번호를 맞춰준다. (for문 에러 방지)
     }
     var v_tblStr = "<table border = 1>";
-        v_tblStr += "<tr><th>순번</th><th>제목</th><th>작성자</th><th>능력</th></tr>";
+        v_tblStr += "<tr><th>순번</th><th>제목</th><th>작성자</th><th>능력</th><th>선택</th></tr>";
         
         for(var i = v_startGulNum; i < v_endGulNum; i++) {
             v_tblStr += "<tr>";
@@ -41,9 +45,11 @@
             v_tblStr += "<td><a href='http://naver.com' onclick='f_open(" + v_guls[i].pid + ")'>" + v_guls[i].title + "</a></td>"
             v_tblStr += "<td>" + v_guls[i].writer + "</td>"
             v_tblStr += "<td>" + v_guls[i].skills + "</td>"
+            v_tblStr += "<td><input type=checkbox name=nm_del value='" + v_guls[i].pid + "'></td>"
             v_tblStr += "</tr>";
         }
-        v_tblStr += "</table>";
+        v_tblStr += "</table><br>";
+        v_tblStr += "<input type=button id=id_del value='삭제' onclick=><br>";
 
     for(var i = 1; i <= v_totalPage; i++) {
         if(i == v_curPage) { // 현재 페이지와 for문이 도는 i가 같으면 (내가 선택한 페이지) style 적용시킨다.
@@ -52,7 +58,6 @@
             v_tblStr += "<a href=list.html?page=" + i + ">" + i + "</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
         }
     }
-
     v_disp.innerHTML = v_tblStr;
         
     var child; // 열린창 제어를 위한 변수
@@ -61,6 +66,51 @@
         event.stopPropagation(); // 이벤트전파(버블링) 제어
         child = window.open("detail.html?gulid="+p_pid, "detail", "width=1000, height= 1000, left = 500, top = 500")
     }
+
+    var v_del = document.querySelector("#id_del");
+    var v_ckboxes = document.querySelectorAll("input[type=checkbox]");
+
+    //-------체크이벤트
+    var f_check = function(){
+        //체크한 값을 배열에 넣어준다.
+        var v_check =[];
+        for(var i =0; i<v_ckboxes.length;i++){
+            if(v_ckboxes[i].checked){
+            v_check.push(v_ckboxes[i].value);
+        }
+    }
+        return v_check;
+    }
+    
+    //------삭제이벤트
+    var f_del = function(){
+        //체크된 값을 arr에 넣어주고
+        var v_arr =[];
+        v_arr = f_check();
+        console.log(v_arr);
+        for(var i=0; i<v_arr.length;i++){
+            for(var j=0; j<v_guls.length; j++){
+                //localstorage의 글의 순번과 체크된값이 같을때
+                if(v_guls[j].pid == v_arr[i]){
+                    v_guls.splice(j,1);//로컬스토에 담긴 글을 삭제해준다.
+                }
+            }
+        }
+        //localstorage에 적용시키기 위해서는 무조건 setItem을 써줘야 저장된다.
+        localStorage.setItem("table",JSON.stringify(v_guls));
+        //href를 써서 바로 로드 될 수 있도록 한다.
+        location.href = "list.html";
+    }
+    v_del.addEventListener("click",f_del);
+    
+    var child;//열린 창 제어를 위한 변수
+    var f_open = function(p_pid){
+        event.preventDefault();//기본 장착된 기능 막기
+        // event.stopPropagation();//이벤트 전파 막기
+       child =  window.open("detail.html?gulid="+p_pid,"detail","width=500,height=600,left=100,top=50")
+        // alert("함수 f_open"+p_pid);
+    }
+
 </script>
 </body>
 </html>
