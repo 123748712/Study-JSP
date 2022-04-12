@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    var v_lotto = [];
+    while(true) {
+        var v_ranNum = Math.ceil(Math.random()*45); // 1 ~ 45
+        
+        if(reapeatCheck(v_lotto,v_ranNum)) {
+            v_lotto.push(v_ranNum);
+        }
+        // 중복체크
+        // var v_isIn = false; // 같은게 없다고 가정
+        // for(var i = 0; i <v_lotto.length; i++) {
+        //     if(v_lotto[i] == v_ranNum) { // 같은 번호가 있다면
+        //         v_isin = true; // 가정이 틀림. 이 구문이 실행되지 않는다면 가정이 맞는 것
+        //         break;
+        //     } 
+        // }
+        // if(!v_isIn) { // 가정 확인
+        //     v_lotto.push(v_ranNum);
+        // }
+
+        // if(v_lotto.length == 6) {
+        //     alert("lotto end " + v_lotto);
+        //     break;
+        // }
+    }
+
+    // 배열과 숫자를 파라미터로 넘겨받은 후 해당 숫자가 배열에 있는지 확인하는 함수
+    // var reapeatCheck = function(p_arr, p_num) {
+    //     for(var i = 0; i < p_arr.length; i++) {
+    //         if(p_arr[i] == p_num) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+</script>
