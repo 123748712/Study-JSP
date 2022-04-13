@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // script 생성자를 이용해 ArrayList 만들기
+
+    var ArrayList = function() {
+        this.length = 0;
+        return this; // 명시적으로 기입
+    }
+
+    ArrayList.prototype.add = function(emt) {
+        this[this.length] = emt;
+        this.length++;
+        return this;
+    }
+
+    ArrayList.prototype.set = function(idx, emt) {
+        this[idx] = emt;
+        return this;
+    }
+
+    ArrayList.prototype.get = function(idx) {
+        return this[idx];
+    }
+
+    // ArrayList.prototype.get = function(idx) {
+    //     this[0] = this[idx]; // 맨 앞으로 옮김
+    //     for(var i = 0; i < this.length; i++) {
+    //         delete this[i];
+    //     }
+    //     this.length = 1;
+    //    return this;
+    // }
+    
+    ArrayList.prototype.remove = function(idx) {
+        for(var i = idx; i < this.length-1; i++) {
+            this[i] = this[i+1]; // 값을 앞으로 복사해서 넣어준 것
+        }
+        delete this[this.length]; // 마지막은 삭제
+        this.length--;
+        return this;
+    }
+
+    ArrayList.prototype.clear = function() {
+        for(var i = 0; i < this.length; i++) {
+            delete this[i];
+        }
+        this.length = 0;
+        return this;
+    }
+
+    var test = new ArrayList();
+
+    test.add(1).add(19).add(5).set(2,22);
+    console.log(test);
+</script>
