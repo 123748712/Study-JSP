@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <div class="jq">1</div>
+    <div class="jq">2</div>
+    <div class="j">3</div>
+    <div class="j">4</div>
+    <div class="jq">5</div>
+</body>
+
+<script>
+    // 전역변수 선언 방법
+    // 1. var $;
+    // 2. window.$;
+
+    // jQuery 로직
+    !function() {
+        var jj = function(sel) {
+            var elems = document.querySelectorAll(sel);
+            // 객체가 생성될때 소유할 수 있도록.
+            this.length = elems.length;
+            for(var i = 0; i <this.length; i++) {
+            this[i] = elems[i];
+        }
+        return this;
+    }
+    // var test = new jj(".jq");
+    
+
+    // new jj()를 리턴하는 함수를 따로 만듬 / proxy
+    var $ = function(sel) {
+        return new jj(sel);
+        }
+
+        window.$ = $; // 전역변수 $에 지역변수 $ 연결
+
+        $.fn = jj.prototype; // 전역변수에 선언해주었기 때문에 따로 추가하지 않아도 가능
+    }();
+    // $.fn.eq = jj.prototype.eq
+    $.fn.eq = function(idx) {
+        this[0] = this[idx];
+        for(var i = 0; i <this.length; i++) {
+            delete this[i];
+        }
+        return this;
+    }
+
+    // new를 붙이지 않아도 가능
+    // var test = $(".jq").eq(1);
+    // // console.log(test);
+
+    $.fn.html = function(arg) {
+        if(typeof(arg) == "undefined") { // 매개변수가 없을때
+            // 선택된 것들 중 첫번째 것의 innerHTML을 리턴
+            return this[0].innerHTML; // <tag>innerHTML<tag>
+        }
+        if(typeof(arg) == "string") { // 매개변수가 string일 때
+            // 선택된 것들의 innerHTML에 전부 변환
+            for(var i = 0; i < this.length; i++) {
+                this[i].innerHTML = arg;
+            }
+            return this;
+        }
+        if(typeof(arg) == "function") { // 매개변수가 함수(콜백)일 때
+            for(var i = 0; i < this.length; i++) {
+                this[i].innerHTML = arg.call(this[i], i, this[i].innerHTML); // call을 이용해 this 컨트롤
+            }
+            return this;
+        }
+    }
+
+    // alert($(".jq").html());
+    // $(".jq").html("<h1>string 타입 매개변수</h1>");
+    $(".jq, .j").html(function(index, oldHtml){
+        // if(index == 0) {
+            // return "<h1>index = 0</h1>";
+        // }
+        // alert(index + " : " + oldHtml);
+        // return; // undefined 값이 return
+        console.log(this);
+        // return oldHtml + "<h1>!!!</h1>"; // 강제로 본인이 갖고 있는 innerHTML을 return
+        return this.innerHTML + "<h1>!!!</h1>"; // this는 현재 내 자신을 가리키기 때문에 this.innerHTML은 자신의 innerHTML이다.
+
+    });
+    </script>
