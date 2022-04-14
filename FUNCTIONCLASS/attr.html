@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script src="myQuery.js"></script>
+<body>
+    <input type="text" name="nm_tx" id="id_tx" value="tx">
+    <input type="text" name="nm_tx" id="id_tx" value="tx">
+    <input type="text" name="nm_tx" id="id_tx" value="tx">
+
+    <input type="button" id="id_btn" value="click">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+</body>
+<script>
+   $.fn.attr = function(arg1, arg2) {
+       if(typeof(arg1) == "string" && typeof(arg2) == "undefined") { // 매개변수가 string
+            return this[0].getAttribute(arg1);
+       }
+       
+       if(typeof(arg1) == "string" && typeof(arg2) == "string") { // 매개변수가 string, string
+            for(var i = 0; i < this.length; i++) {
+                return this[i].setAttribute(arg1, arg2);
+            }
+       }
+       
+       if(typeof(arg1) == "object" && typeof(arg2) == "undefined") {  // 매개변수가 json
+            for(var i = 0; i < this.length; i++) {
+                for(var attr in arg1) {
+                    this[i].setAttribute(attr, arg1[attr])
+                }
+            }
+            return this;
+       }
+       
+       if(typeof(arg1) == "string" && typeof(arg2) == "function") {  // 매개변수가 string, function
+            for(var i = 0; i < this.length; i++) {
+                    this[i].setAttribute(arg1, arg2.call(this[i], i, this[i].getAttribute(arg1)));
+                }
+            return this;
+       }
+       
+       if(typeof(arg1) == "string" && typeof(arg2) == "number") {
+            for(var i = 0; i < this.length; i++) {
+                return this[i].setAttribute(arg1, arg2);
+            }
+       }
+       return this;
+   }
+
+   $.fn.empty = function() {
+       for(var i = 0; i < this.length; i++) {
+           this[i].innerHTML = "";
+        }
+        return this;
+   }
+//    console.log($("input").attr("name"));
+//    $("input").attr("type", "button");
+//    $("input").attr({
+//        "name" : "rename",
+//        "value" : "revalue",
+//        "type" : "checkbox",
+//        "id" : "reid"
+//    })
+//    console.log($("input").attr("name").attr("value"));
+    $("input").attr("value", function(index, attr) {
+        console.log(this);
+        if(index == 0) { // 태그의 첫번째에만 넣고싶을 때
+            return "aaa";
+        }
+        return attr;
+    });
+
+    $.fn.on = function(evtName, cb) {
+        for(var i = 0; i < this.length; i++) {
+            this[i].addEventListener(evtName, cb);
+        }
+    }
+
+    $("#id_btn").on("click", function() {
+        console.log(this);
+        console.log("clicked");
+    })
+
+    $.fn.end = function() { // 모든 태그를 선택하는 함수
+        return $(this.prev); // 저장해 놓은 선택자를 활용
+    }
+    console.log($("div").eq(1));
+    console.log($("div").eq(1).end());
+
+</script>
