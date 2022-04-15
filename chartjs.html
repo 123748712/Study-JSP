@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+</head>
+<body>
+    <input type="button" value="value" id="id_in">
+    <!-- 부모 element기준으로 사이즈 자동 조절, div로 태그를 감싸준다. -->
+    <div style="width: 400px; height: 400px; border: 5px solid black;">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+<script>
+// 그래픽엔진사용, DirectX, (OpenGL => WGL)
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar', // bar, line, pie, doughnut, radar ...
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', "a"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// data 속성에 접근하는 방법
+// console.log(myChart.data.datasets[0].data);
+
+
+var btn = document.querySelector("#id_in");
+
+var data = function(set) { // ajax 처럼 set 데이터 묶음을 매개변수로 담아서 보내면 됨 (ajax)
+    var anotherData = {};
+    anotherData.label = set.label;
+    anotherData.data = set.data;
+    anotherData.backgroundColor = set.backgroundColor;
+    anotherData.borderColor = set.borderColor;
+    anotherData.borderWidth = set.borderWidth;
+    return anotherData; // 지역변수에서 return하게 된다면 closure이라고 부르게 되는 변수가 됨
+}
+
+var f_ranData = function(cnt) {
+    var data = []; // 빈 배열 
+    for(var i = 0; i < cnt; i++) {
+        data.push(Math.ceil(Math.random()*100));
+    }
+    return data;
+}
+
+var ranColors = function (cnt) {
+    var colorData = [];
+    for(var i = 0; i <cnt; i++) {
+        var str = "rgb(";
+        str += Math.floor(Math.random()*256) + ",";
+        str += Math.floor(Math.random()*256) + ",";
+        str += Math.floor(Math.random()*256) + ")";
+        colorData.push(str);
+    }
+    return colorData;
+}
+
+var f_click = function() {
+    // var anotherData = { // 1개의 data 묶음
+    //     label: 'anotherData',
+    //     data: [12, 19, 3, 5, 2, 3],
+    //     backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)'
+    //     ],
+    //     borderColor: [
+    //         'rgba(255, 99, 132, 1)'
+    //     ],
+    //     borderWidth: 1
+    // }
+
+    // var anotherData = {};
+    // anotherData.label = "label";
+    // anotherData.data = [12, 19, 3, 5, 2, 3];
+    // anotherData.backgroundColor = ['rgba(255, 99, 132, 0.2)'];
+    // anotherData.borderColor = ['rgba(255, 99, 132, 1)'];
+    // anotherData.borderWidth = 1;
+                
+    var ranData = [];
+    for(var i = 0; i <= 6; i++) {
+        ranData.push(Math.ceil(Math.random()*45));
+    }
+    myChart.data.datasets[0].label = "label" + i;
+    // // myChart.type = "line"; // 변경 불가능한 요소
+    myChart.data.datasets[0].type = "line"; // datasets에 접근하면 변경 가능
+    myChart.data.datasets[0].data = ranData;
+    // console.log(myChart.data.datasets[0].data);
+    // // randering // ssr, csr
+
+    // myChart.data.datasets.push(anotherData); // 같은 데이터가 계속 push 됨
+    myChart.data.datasets[1] = data({
+        label : "dataLabel",
+        data : f_ranData(6),
+        backgroundColor : ranColors(6),
+        borderColor : ["pink", "hotpink", "black", "blue", "yellow", "gray"],
+        borderWidth : Math.ceil(Math.random()*10)
+    });
+    myChart.update(); // 값 넣어준 그대로 update
+    setTimeout(f_click, 4000);
+}
+
+btn.addEventListener("click", f_click);
+</script>
+</body>
+</html>
