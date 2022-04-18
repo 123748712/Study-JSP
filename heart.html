@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>draw Heart</title>
+<style>
+    #point {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: black;
+        left: 140px;
+        top: 200px;
+
+    }
+    #heart {
+        border : 5px solid pink;
+        position : relative;
+        /* dafault => static 변경 불가능, absolute => 왼쪽 상단 기준부터 변경 가능, fixed => 스크롤시 고정되게끔, relative => 현재 위치 기준 변경 */
+        /* 부모 relative, 자식 absolute => 부모 왼쪽 모서리 기준으로 자식 위치 변경 가능 */
+        left : 80px;
+        top: 100px;
+        width: 100px;
+        height: 100px;
+        overflow: hidden; /* 본인 영역을 벗어난 부분 숨기기 */
+        transform-origin: right top; /* 회전의 중심을 설정*/ /* left center right    top
+                                                                                    center
+                                                                                    bottom */
+                                     
+        transform: rotate(45deg); 
+    }
+    .right {    
+        position: absolute;
+        left: 50px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%; /* 원 */
+    }
+    
+    .bottom {
+        position: absolute;
+        top: 50px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%; /* 원 */
+    }
+</style>
+</head>
+<body>
+    <input id="id_move" type="button" value="move">
+    <input id="id_copy" type="button" value="copy">
+    <div id="id_disp" style="border: 1px solid blue">
+        asdfasdf
+    </div>
+    <div id="heart">
+        <div class="right"></div>
+        <div class="bottom"></div>
+        <div class="left"></div>
+    </div>
+    <div id="point"></div>
+<script>
+    // var global = {} // 전역변수를 담을 공간
+    // global.v_move = doument.querySelector("#id_move"); // 담아주기
+    var v_heart = document.querySelector("#heart");
+    var v_move = document.querySelector("#id_move");
+    var v_copy = document.querySelector("#id_copy");
+    var v_disp = document.querySelector("#id_disp");
+    
+    // v_heart.style.left = "1300px;" /* position이 static이면 script 영역에서 변경 불가능 */
+
+    // for(var i = 0; i <= 30; i++) {
+    //     document.write("<h1>스크롤 테스트 더미</h1>");
+    // }
+
+    var f_move = function () {
+        // 화면상에 존재하는 객체를 다른 곳에 붙여넣기.
+        // 이동하는 것처럼 보임
+        v_disp.appendChild(v_heart);
+    }
+    v_move.addEventListener("click", f_move);
+
+    var f_copy = function () {
+        var v_clone = v_heart.cloneNode(!0); // node 복사 !0 => true
+        v_clone.style.display = "inline-block";
+        v_clone.style["position"] = "static";
+        v_disp.appendChild(v_clone); // 복사한것 붙여넣기.
+    }
+
+    v_copy.addEventListener("click", f_copy);
+
+    var v_gak = 0;
+    
+    function f_rotate(){
+        v_gak = (v_gak + 10) % 360;
+        v_heart.style.transform = "rotate(" + v_gak + "deg)";
+        setTimeout(f_rotate, 500); // 0.5초마다 재귀 호출
+    }
+    f_rotate(); // 함수 호출
+</script>
+</body>
+</html>

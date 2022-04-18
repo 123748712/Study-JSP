@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // js 변수 Scope(범위 life cycle)
+    // es5, es6
+    // var  let, const
+    // var => 전역, 지역(function) scope만 있음, function 안에 선언, 밖에 선언 구분
+    var aa = "전역변수";
+    var local = function() {
+        var aa = "지역변수";
+        console.log(aa);
+    }
+    local();
+    console.log(aa);
+</script>

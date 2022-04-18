@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <input type="button" id="id_btn" value="bind">
+</body>
+<script>
+    var btn = document.querySelector("#id_btn");
+    var f_this = function(arg1, arg2) {
+        alert(arg1 + " : " + arg2);
+        console.log(this);
+    }
+    // 함수 실행기호 ()를 붙일수 없을 때 bind를 사용한다.
+    btn.addEventListener("click", f_this.bind({name : "name"}, "a", "b"))
+</script>
