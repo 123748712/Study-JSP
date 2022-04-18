@@ -14,21 +14,22 @@
 <body>
     <div id="id_clock">오후 5:20:11</div>
 <script>
-    clock = document.querySelector("#id_clock");
-    var today = new Date();
-    setTimeout(hour, 1000);
-    setTimeout(min, 1000);
-    setTimeout(sec, 1000);
-    setTimeout(time, 1000);
-    var hour = today.getHours();
-    var min = today.getMinutes();
-    var sec = today.getSeconds();
-    var time = hour + " : " + min + " : " + sec;
+    // 클라이언트에서 Date 객체를 사용하는건 공통된 시간이 아니기 때문에 의미가 없음
+    // 서버시간을 읽어와서 강제 세팅
+    var today = new Date("2022-02-28");
+    // console.log(today.toLocaleString());
     
-    var timer = function() {
-        clock.innerHTML = time
-    }
+    // 현재 달의 일수를 계산
+    // today.setDate(31);
+    // console.log(today.toLocaleString());
     
+    // 설정한 날짜의 5일 뒤를 설정
+    // today.setDate(today.getDate()+5);
+    // console.log(today.toLocaleString());
+
+    // 설정한 달의 -1 출력됨 (+1을 해야함)
+    console.log(today.getMonth());
+
     
 </script>
 </body>
