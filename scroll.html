@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scroll</title>
+</head>
+<body>
+    <div id="id_disp">
+<script>
+    var v_disp = document.querySelector("#id_disp");
+    // 스크롤하기 위한 더미데이터 생성
+    for(var i = 0; i <= 30; i++) {
+        document.write("<h2>!!! " + i + "</h2>")
+    }
+</script>
+</div>
+<script>
+    // 스크롤바 이동
+    // window.scrollTo(0, 0); // (x, y);
+    // 크롬 버그로 y = 0 이면 이동하지 않음
+
+    // 일부 document 이벤트보다 빨리 실행되어 버그 발생. setTimeout으로 이벤트 살짝 늦춤
+    setTimeout(function() {
+        window.scrollTo(0,0);
+    },50);
+
+    // 스크롤 이벤트
+    f_scroll = function() {
+        var v_scrolltop = parseInt(document.documentElement.scrollTop);
+        var v_clientHeight = document.documentElement.clientHeight;
+        var v_scrollHeight = document.documentElement.scrollHeight;
+        
+        // 실제 사용은 스크롤바가 끝나기 전 조금 위의 값으로 세팅(튜닝)
+        if((v_scrolltop + v_clientHeight) >= v_scrollHeight - 50) {
+            // 더 볼 수 있는 내용을 추가함
+            // 최종적으로 ajax를 이용해 서버에서 데이터를 받아와 추가함
+            for(var i = 0; i <= 10; i++) { // 문서의 끝에 왔을때 문서의 마지막에 무한으로 글을 추가함
+                v_disp.innerHTML += "<h1>!!! " + i + "</h1>";
+            }
+        }
+
+
+        console.log("top", parseInt(document.documentElement.scrollTop));
+        console.log("view height", document.documentElement.clientHeight); // 보이는 높이
+        console.log("document height", document.documentElement.scrollHeight); // 문서 높이
+        console.log("==============================================");
+
+        // scrollTop + clientHeight = scrollHeight
+    }
+    window.addEventListener("scroll", f_scroll);
+</script>
+</body>
+</html>
