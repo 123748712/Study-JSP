@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_disp {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <div id="id_disp">
+        파일 드래그
+    </div>
+<script>
+    var v_disp = document.querySelector("#id_disp");
+    // dragover frop 이벤트 모두 막기
+    var f_dragOver = function() {
+        event.preventDefault(); // build-in 기능 막기
+        event.stopPropagation(); // 이벤트 전파 막기
+        
+    }
+    
+    var f_drop = function() {
+        event.preventDefault(); // build-in 기능 막기
+        event.stopPropagation();
+        // dataTransfor 자동완성 x 
+        console.log(event.dataTransfer.files);
+        v_disp.innerHTML = "";
+        var v_files = event.dataTransfer.files;
+        for(var i = 0; i < v_files.length; i++) {
+            f_file(v_files[i], v_files.length);
+        };
+    };
+
+    var f_file = function(p_file, p_length) {
+        var v_fileReader = new FileReader();
+        v_fileReader.onload = function() {
+            var v_img = document.createElement("img");
+            v_img.src = v_fileReader.result;
+            v_img.width = 50;
+            v_img.height = 50;
+            v_disp.appendChild(v_img);
+        }
+        v_fileReader.readAsDataURL(p_file);
+    }
+
+    v_disp.addEventListener("dragover", f_dragOver);
+    v_disp.addEventListener("drop", f_drop);
+    window.addEventListener("dragover", f_dragOver);
+    window.addEventListener("drop", f_drop);
+</script>
+</body>
+</html>

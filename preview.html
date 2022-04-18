@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_disp {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <div id="id_disp"></div>
+    <input type="file" multiple name="nm_file" id="id_file" accept=".jsp, .png"> <!-- multiple => 여러개의 파일을 선택할 수 있음 / accept => 확장자 선택 가능 -->
+<script>
+    var fileBtn = document.querySelector("#id_file");
+    var v_disp = document.querySelector("#id_disp");
+    var f_change = function() {
+        // input type = file 의 속성 => files
+        // console.log(fileBtn.files);
+        
+        // 스크립트에선 사용자가 선택해준 파일만 읽을 수 있음
+        // 사용자 시스템에 쓰는건 보안상의 이유로 불가능
+        
+        var file = fileBtn.files[0]; // 파일리스트 안 파일객체 뽑기
+        
+        var fileReader = new FileReader(); // 파일 읽게 할 수 있는 객체 생성
+    
+        // 파일을 다 read 했다면 이벤트 발생 (비동기 => NonBlocking)
+        fileReader.onload = function() {
+            // 읽은 결과를 result 속성에 담기
+            console.log(fileReader.result);
+            
+            var img = document.createElement("img");
+            img.src = fileReader.result;
+            img.width = 200;
+            img.setAttribute("height",200);
+            v_disp.innerHTML = ""; // 초기화    
+        v_disp.appendChild(img);
+        
+        // console.log("비동기 테스트");
+        
+    }
+}
+    // fileReader.readAsText => text 파일 읽기
+    fileReader.readAsDataURL(file); // 웹 기준 binary 데이터
+    // change event를 주로 사용
+    fileBtn.addEventListener("change", f_change);
+</script>
+</body>
+</html>

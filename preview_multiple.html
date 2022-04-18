@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_disp {
+        width: 200px;
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <div id="id_disp"></div>
+    <input type="file" multiple name="nm_file" id="id_file" accept=".jsp, .png"> <!-- multiple => 여러개의 파일을 선택할 수 있음 / accept => 확장자 선택 가능 -->
+<script>
+    var fileBtn = document.querySelector("#id_file");
+    var v_disp = document.querySelector("#id_disp");
+
+    // 코드의 비동기 방식으로 인한 문제는 해당 코드를 함수로 분리한다.
+    function fileRead(p_file) { // 한개의 파라미터만 처리할 수 있는 함수
+        var fileReader = new FileReader();
+        fileReader.onload = function() {
+            var img = document.createElement("img");
+            img.src = fileReader.result;
+            img.width = 200;
+            img.setAttribute("height",200);
+            v_disp.appendChild(img);
+        }
+        fileReader.readAsDataURL(p_file); 
+    }
+
+    var f_change = function() {
+        v_disp.innerHTML = "";
+        var fileList = fileBtn.files;
+        for(var i = 0; i < fileList.length; i++){
+           fileRead(fileList[i]);
+        }
+    }
+    fileBtn.addEventListener("change", f_change);
+</script>
+</body>
+</html>
