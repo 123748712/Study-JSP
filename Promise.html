@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 비동기를 사용하다보면 비동기 안에 비동기가 반복되며, callback함수로 구현함
+    // 비동기 제어를 위해 나온 Promise
+    // 개발자가 직접 Promise객체를 생성, 구현할 일은 거의 없음
+    // 필요한 라이브버리들이 내부적으로 Promise를 return해줌
+
+    var f_check = function() {
+        return new Promise((resolve, reject) => { // 매개변수 이름은 마음대로 지정해도 되지만, 관례적으로 resolve, reject로 지음
+            // Promise함수가 정상 실행되면 resolve 호출, 문제가 발생된다면 reject 호출
+            // resolve("약속 이행");
+            reject("문제 발생");
+
+        });
+    }
+    // javascript에선 try-catch 구문을 사용하지 않는다.
+    // catch에서 에러를 잡았다고 하더라도 할 수 있는게 없다.
+
+    f_check().then((p_relt) => {
+        console.log(p_relt);
+    }).catch((p_err) => {
+        console.log(p_err);
+    }).finally(() => {
+        console.log("finally");
+    })
+</script>
