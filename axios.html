@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 일반적인 ajax
+    const ajax = function() {
+        const c_xhr = new XMLHttpRequest();
+        c_xhr.open("메소드", "URL", "비동기여부"); // ("메소드", "URL", "비동기여부")
+        c_xhr.onreadystatechange = function() {
+            if(c_xhr.readyState == 4 && c_xhr.status == 200) {
+                console.log(c_xhr.responseText);
+            }
+        }
+        c_xhr.send();
+    }
+    
+    // axios - ajax와 동작은 같지만 Promise를 리턴하는 것이 다름
+    const axios = {}; // 네임스페이스용 객체
+    axios.getJson = function(p_url) {
+        return new Promise((resolve, reject) => {
+            const c_xhr = new XMLHttpRequest();
+            c_xhr.open("get", p_url, true);
+            c_xhr.onreadystatechange = function() {
+                if(c_xhr.readyState == 4 && c_xhr.status == 200) {
+                    // console.log(c_xhr.responseText);
+                    // 미래 결정된 값을 resolve에 알려줘야 함
+                    resolve(JSON.parse(c_xhr.responseText)); // json 형태로 변환
+                }
+            }
+            c_xhr.send();
+        });
+    }
+    // console.log(axios.getJson("./AJAX/data.txt"));
+    // axios.getJson("./AJAX/data.txt").then((p_rslt) => {
+    //     console.log(p_rslt);
+    // }).finally(() => {
+    //     console.log("aa");
+    // });
+
+    // Promise가 callback의 해결책으로 나와 잠깐 인정
+    // but, then, then 구문에 빠짐
+
+    // async, await 키워드 - Promise에 대한 불만을 잠재우기 위해 출현
+    
+    async function f_async() { // async 키워드를 붙이면 함수 자체가 비동기
+        let l_rslt = await axios.getJson("./AJAX/data.txt"); // await 키워드를 붙이면 결과를 얻을때까지 기다린다.
+        console.log(l_rslt);
+    }
+    f_async(); // 함수를 호출해도 아래 코드에 무언가 출력되는 함수가 있다면 그 코드부터 출력
+
+    console.log("비동기 테스트");
+
+</script>
