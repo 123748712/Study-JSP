@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var v_str = "aaa";
+    // v_str = "bbb"; // 기존 문자열 더하기 방식
+    v_str = `a ${v_str}`; // Template String 방식
+    console.log(v_str);
+
+    var v_obj = {
+        name : "이름",
+        habit : "취미"
+    }
+
+    var { name } = v_obj; // 구조분해
+    var habit = v_obj.habit; // 위와 동일한 코드
+    console.log(name);
+</script>
+</body>
+</html> 
