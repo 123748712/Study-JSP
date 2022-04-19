@@ -143,3 +143,68 @@ encoding <=> decoding
 escape <=> unescape
 encodeURI <=> decodeURL
 encodeURIComponent <=> decodeURLComponent
+
+
+환경변수(Enviroment Variable)
+    path(PATH) - 입력한 명령어를 빠르게 찾기 위해 우선순위 주소를 등록하는 것
+    제어판 => 환경변수 편집 => 새로 만들기
+
+    JAVA_HOME 등록
+    이름 : JAVA_HOME, 값 : JAVA 폴더 => JDK 선택
+
+    M2_HOME 등록
+    이름 : M2_HOME, 값 : maven 폴더 선택
+
+    PAHT 등록
+    %JAVA_HOME%\bin 등록
+
+    cmd => echo %JAVA_HOME% 입력시 C:\Program Files\Java\jdk1.8.0_202 나오면 성공
+
+    cmd => mvn => mkdir {폴더명} => mvn archetype:generate => 1889 : enter => 8 : enter
+    => 'groupId' : 회사 경로 반대로
+       'artifactId' : 프로젝트 이름
+       'version' 1.0-SNAPSHOT: enter
+       'package' : enter
+       Y : enter
+    
+    pom.xml 파일이 있는 곳에서 mvn compile
+    소스를 모두 컴파일해 target 파일에 저장된다.
+
+    mvn clean => target 폴더 삭제
+
+    mvn package => package 생성
+    - .Jar => Java Archive
+    - .War => web Archive
+    - .Ear => Enterprise Archive (가장 큼)
+
+    mvn install => 패키징한 파일을 로컬 저장소에 배포한다. (/.m2)
+
+    mvn test => 단위 테스트 실행
+
+    compile된 class 파일 실행
+    classes 폴더 cmd => java -cp . 디렉토리.디렉토리.App (실행시킬 App이 넣어져있는 디렉토리 주소를 기입)
+
+    .jar 파일 실행
+    java -jar {jar파일 이름}.jar
+    
+    ======================================================================================
+
+    tomcat (Servlet Container, Web Application Container)
+
+    실행
+    cmd => startup.bat
+
+    종료
+    cmd => shutdown.bat
+
+    webapps => Web Application
+
+    tomcat
+
+    ======================================================================================
+
+    JSP (Java Server Page) => Servlet
+
+    ASP
+
+    PHP => 홈페이지 제작에만 주로 사용
