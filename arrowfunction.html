@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<script>
+    // 화살표 함수 / arrow function expression (일부 제약사항 O)
+    // 제약사항이 발생하는 경우 function 키워드를 붙여쓴다.
+    
+    // var f_func = function() {
+    //     alert("aaa");
+    // }
+
+    // var v_func = () => {
+    //     alert("aa");
+    // }
+
+    // var v_func = p_arg => { // 매개변수가 하나밖에 없을땐 괄호 생략 가능
+    //     alert(p_arg);
+    // }
+    
+    // v_func("aaa");
+
+    // var v_func = p_arg => p_arg + 9; // string 타입이면 p_arg9 가 나오지만 number 타입은 더한값이 나옴
+    
+    // var func = function(p_arg) { // 위 코드와 동일
+    //     return p_arg;
+    // }
+    
+    // alert(v_func(7));
+
+
+    // 즉각 실행 함수
+    // (function () {
+    //     alert("즉각실행함수");
+    // })();
+
+    (() => {
+        alert("즉각실행함수");
+    })();
+
+    // == 정리 ==
+    // function 키워드를 배고 => 가 추가됨
+    // ()매개변수가 1개인 경우 () 생략 가능
+    // {}안에 return문만 있는 경우 return과 {} 생략 가능
+
+
+    
+</script>
