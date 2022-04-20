@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script type="module"> // type="module"
+    // ES6 이상부터는 네임스페이스 개념보다는 모듈개념
+    // 자바는 모듈을 11부터 지원
+    
+    // import문은 module 안에서만 사용할 수 있다.
+    import aaa from "./sample.js"; // import 수입, export 수출
+    // defalut 내보내기는 어떤 이름으로도 가져올 수 있다. (aaa로 가져오기)
+    
+    // aaa(); // aaa 함수 실행
+
+    import { c_obj2 as a } from "./sample.js"; // as => 별명
+    // as를 이용해 이름 변경 가능
+    console.log(a);
+
+    import * as all from "./sample.js"; // js 내에 있는 모든걸 가져오기
+
+    console.log(all.default);
+    console.log(all.c_obj);
+    console.log(all.c_obj2);
+    all.default();
+
+    // node.js를 사용한다면 require 사용함
+    // commonjs(스크립트 커뮤니티) 모듈은 require 사용
+    // ESM(EcmaScript Module) 은 import 사용 (표준)
+</script>
