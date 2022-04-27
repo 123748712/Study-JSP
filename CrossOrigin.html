@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<!-- Origin = 프로토콜(http,ssl) + 도메인(IP) + 포트번호(8080), 한개라도 다를시 다른 Origin 포트번호 64K(64 * 2의 10승)-->
+<!-- Cross-Origin = Origin이 섞이는 것, AJAX에서만 기본적으로 Cross-Origin 제약사항 존재(서버 관리자가 설정 가능)  -->
+<!-- CORS - Cross Origin Resource Sharing -->
+<!-- 서버 우회 - 내 서버에 요청하면 내 서버는 다른 서버에 요청하게 한다. -->
+<script>
+    const xhr = new XMLHttpRequest();
+    // let url = "https://www.flickr.com/services/feeds/photos_public.gne";
+    // https://news.google.com/rss/search?q=%EC%A1%B0%EC%9D%B4%EC%84%9C&hl=ko&gl=KR&ceid=KR:ko
+    xhr.open("get", "http://localhost:8405/basic/ajax/start", true);
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4 & xhr.status == 200) {
+            alert(xhr.responseText);
+        }
+    }
+    xhr.send();
+</script>
+</body>
+</html>
