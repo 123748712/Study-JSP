@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #id_disp {
+        border: 1px solid black;
+        position: relative;
+    }
+    .bar {
+        width: 10px;
+        position: absolute;
+        background-color: pink;
+    }
+</style>
+</head>
+<body>
+값 : <input type="text" id="id_text" size="40">
+<input type="button" id="id_btn" value="차트">
+<div id="id_disp"></div>
+<script>
+    const c_disp = document.querySelector("#id_disp");
+    const c_btn = document.querySelector("#id_btn");
+    const c_text = document.querySelector("#id_text");
+
+    const f_del = () => {
+        for(let i = 0; i < c_disp.children.length; i++) {
+            let bar = document.querySelector(".bar");
+            c_disp.removeChild(bar[i]);
+        }
+    }
+
+    const f_chart = () => {
+        c_disp.innerHTML = "";
+        let values = c_text.value.split(",");
+        let dispHeight = 0;
+        c_disp.style.height = values.length*30 + "px";
+        for(let i = 0; i < values.length; i++) {
+            dispHeight += Number(values[i]);
+            let bar = document.createElement("div");
+            bar.style.height = values[i] + "px";
+            bar.setAttribute("class", "bar");
+            bar.style.top = ((values.length*30)-Number(values[i])) + "px";
+            bar.style.left = (i*15) + "px";
+            c_disp.appendChild(bar);
+        }
+    }
+
+    c_btn.addEventListener("click", f_chart);
+    
+</script>
+</body>
+</html>
