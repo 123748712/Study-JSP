@@ -102,7 +102,7 @@ echo "~~" -> "" 화면 출력 (표준출력, stdout)
 echo "~~" > 파일명 -> 파일명에 저장 (같은 파일에 저장하면 덮어씌어짐)
 echo "~~" >> 파일명 -> 파일명에 저장 (파일에 추가로 저장됨)
  ">" (redirect) - 출력, 입력방향을 바꾼다.
-cat 파일명 -> 파일 내용 읽어오기
+cat 파일명 -> 파일 내용 읽기
 
 ls -l > 파일명 -> 현재 화면에 있는 파일, 디렉토리를 파일에 모두 저장
 
@@ -241,3 +241,128 @@ alias 별명='명령어' -> 명령어를 별명으로 줄여서 사용
 unalias 별명 -> 별멍 alias 삭제
 
 alias > aliaslist
+현재 alias로 저장되어 있는 것들을 aliaslist 파일로 생성 (>)
+
+crontab -> 특정시간에 특정 기능을 수행하는 스케쥴러
+(cron 표현식 검색해 원하는 시간 설정 가능)
+
+분 시 일 월 요일 명령어 -> 설정한 시간에 맞춰 명령어를 실행
+
+fbi - echo "hello linux" >> fbiFile
+0  5  *  *   l /home/soo/fbi -> ex) 매월 매일 새벽 5시 0분 월요일에 home/soo/fbi를 실행해라
+분 시 일 월 요일
+
+즉, hello linux를 출력하는 파일인 fbi를 1분마다 파일화하는 스케줄을 실행하는 것
+
+*/1 * * * * -> 매 1분마다 작동
+
+crontab -l -> 스케줄러 실행중인 파일 리스트
+
+service cron start -> 스케줄러 실행
+service cron restart -> 스케줄러 재실행
+service cron stop -> 스케줄러 종료
+
+ls -lrt -> 시간 역순 정렬 리스트 출력
+
+select tab키 -> select 명령어 출력
+
+select-editor -> ??
+
+=========================================================
+
+linux svn
+
+sudo apt install subversion subversion-tools -> svn 설치
+
+svn --help -> svn 명령어 출력
+
+sudo svnadmin create [이름] -> 현재 경로에 이름으로 된 저장소 생성
+sudo svn import [경로] file:///[svn저장소]/[폴더명] -m "commit message"; -> 경로의 디렉토리를 가져와 폴더명으로 저장소에 저장한 후 commit message로 업로드한다.
+
+svn checkout file:///[저장소경로]/[폴더명] -> 저장소에 있는 폴더명을 밖으로 내보낸다.
+svn checkout file:///[저장소경로]/[폴더명] [주고싶은폴더명] -> 저장소에 있는 폴더명을 주고싶은폴더명으로 저장후 밖으로 내보낸다.
+
+svn svnserve -d -r [저장소경로] -> svn 서버 구동 (-r : 루트디렉토리)
+ps -ef | grep -i svnser -> 구동중인 svnser 프로세스 검색
+
+svn checkout svn://localhost/[폴더명] [주고싶은폴더명] -> 주고싶은 폴더명으로 svn폴더를 내보낸다.
+localhost - 루트디렉토리로 설정한 경로
+
+1. 저장소 생성
+2. 저장소에 파일 저장 (import)
+3. svn 서버 구동 (루트디렉토리(home) 설정)
+4. checkout으로 확인
+
+
+svn status -> 변경된 상태 혹은 현재 상태 확인 (M -> 수정된 파일(Modify), ? -> 현재 상태를 알지 못함, A -> 생성한 파일(Add))
+
+svn commit [commit할 파일명] -m "commit message" -> 변경된 상태 commit
+
+저장소 -> conf -> svnserve.conf -> sudo xed svnserve.conf 명령어를 통해 파일 열기
+-> anon-access = read, anon-access = write 앞에 "#" 제거해 열어주기
+-> password-db = passwd 앞에 "#" 제거해 파일 사용하겠다고 알리기
+-> sudo xed passwd 명령어를 통해 passwd파일 열기
+-> [users] 아래에 사용자를 추가한다. [아이디=암호]
+
+커밋할 권한이 생기게 되어 커밋이 가능하다.
+
+다시 커밋해보면 커밋 성공.
+
+SVN {
+    commit -> server로 전송
+    update -> server에 있는 최신정보 업데이트
+}
+
+svn add [add할 파일] -> 새로 만든 파일을 add 한다.
+새 파일을 만들었으면 add해서 생성된 파일임을 알려주어야 한다.
+그냥 하게 될시 생성된 파일의 상태는 "?" 로 찍힌다.
+add 해주어야 현재 상태가 A로 변환되어 commit이 가능하다.
+
+svn update -> server에 commit된 최신 버전으로 업데이트한다.
+
+
+apache 연결
+
+sudo apt update
+sudo apt upgrade 
+sudo apt install apache2 apache2-utils
+sudo service apache2 start
+http://localhost 로 접속하면 확인이 가능하다.
+
+
+svn log -> 커밋한 시간, 커밋메세지 출력
+
+
+etc/apache2/modes-enabled 에 있는 파일 모두 ls -l 해보면 "->" 표시가 있다.
+모두 바로가기라는 뜻
+
+ls dav* -> sudo xed dav_svn.conf 로 메모장으로 연 후 맨 밑에
+
+<Location /svn>
+ DAV svn
+ SVNParentPath /home/svn
+ AuthType Basic
+ AuthName "Subversion Repository"
+ AuthUserFile /etc/apache2/dav_svn.passwd
+ Require valid-user
+</Location>
+
+붙여넣기 후 저장
+
+sudo a2enmod dav_svn -> svn 모듈 활성화 시키기
+
+sudo htpasswd -cm /etc/apache2/dav_svn.passwd [사용자이름] -> 사용자 등록
+암호를 물어보면 암호 지정
+cat /etc/apache2/dav_svn.passwd -> 사용자가 추가되었는지 cat 명령어를 통해 확인하기
+
+똑같은 경로에 사용자 이름만 변경하게 되면 추가등록이 아닌 덮어씌어짐
+sudo htpasswd -m /etc/apache2/dav_svn.passwd [사용자이름] -> -cm이 아닌 -m으로 하게 되면 사용자가 추가됨
+
+sudo service apache2 restart -> apache서버 재구동
+
+apache서버와 svn이 연결되었기 때문에 localhost/svn/[폴더]를 입력하면 연결됨
+
+연결하고 싶은 폴더 경로에 svn co http://localhost/svn/[폴더명] [이름] -> 현재 경로에 아파치서버와 연결된 폴더 생성
+현재 사용자의 암호와 localhost의 사용자명, 암호를 적으면 연결 성공
+
+폴더에 파일 생성후 localhost/svn/[폴더명] 을 주소로 치면 폴더에 들어가있는 파일 출력
